@@ -198,6 +198,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="gittest.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="SmallFrog.h" />
     <ClInclude Include="MiniginPCH.h" />

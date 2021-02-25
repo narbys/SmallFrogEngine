@@ -8,6 +8,8 @@
 #include "ResourceManager.h"
 #include <SDL.h>
 
+
+#include "Command.h"
 #include "FPSComponent.h"
 #include "TextComponent.h"
 #include "GameObject.h"
@@ -73,6 +75,9 @@ void dae::SmallFrog::LoadGame() const
 	go->AddComponent(new FPSComponent());
 	go->AddComponent(new TextComponent("null", font));
 	scene.Add(go);
+
+	//Input
+	InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
 	
 }
 

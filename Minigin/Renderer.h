@@ -13,7 +13,6 @@ namespace dae
 	class Renderer final : public Singleton<Renderer>
 	{
 	public:
-		int GetOpenGLDriverIndex();
 		void Init(SDL_Window* window);
 		void Render();
 		void Destroy();
@@ -22,10 +21,19 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 
 		SDL_Renderer* GetSDLRenderer() const { return m_pRenderer; }
+
+		void LogDebugText(const std::string& txt);
 	private:
+		int GetOpenGLDriverIndex();
+
+		void RenderImGuiWindows();
+		
 		SDL_Renderer* m_pRenderer{};
 		SDL_Window* m_pWindow{};
 		bool m_ShowDemo{true};
+
+
+		std::vector<std::string> m_LogText{"SmallFrogEngine: Start of debug log"};
 	};
 }
 

@@ -1,4 +1,6 @@
 #pragma once
+
+#include "Renderer.h"
 namespace dae
 {
 	class Command
@@ -11,6 +13,6 @@ namespace dae
 	class BeepboopCommand : public Command
 	{
 	public:
-		virtual void Execute() override {};
+		virtual void Execute() override { Renderer::GetInstance().LogDebugText("Beepboop"); };
 	};
 }

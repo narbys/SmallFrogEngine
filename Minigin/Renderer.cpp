@@ -2,7 +2,11 @@
 #include "Renderer.h"
 #include <SDL.h>
 
+#pragma warning (disable : 26812)
+#pragma warning (push)
 #include "imgui.h"
+#pragma warning (pop)
+
 #include "SceneManager.h"
 #include "Texture2D.h"
 #include "backends/imgui_impl_opengl2.h"
@@ -33,8 +37,14 @@ void dae::Renderer::Render()
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(m_pWindow);
 	ImGui::NewFrame();
-	if (m_ShowDemo)
-		ImGui::ShowDemoWindow(&m_ShowDemo);
+
+	//Render ImGui
+	//
+	//if (m_ShowDemo)
+		//ImGui::ShowDemoWindow(&m_ShowDemo);
+	RenderImGuiWindows();
+
+	
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 	
@@ -73,6 +83,11 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
+void dae::Renderer::LogDebugText(const std::string& txt)
+{
+	m_LogText.push_back(txt);
+}
+
 int dae::Renderer::GetOpenGLDriverIndex()
 {
 	auto openglIndex = 1;
@@ -85,4 +100,21 @@ int dae::Renderer::GetOpenGLDriverIndex()
 				openglIndex = i;
 	}
 	return openglIndex;
+}
+
+void dae::Renderer::RenderImGuiWindows()
+{
+	//todo: make proper debug log window
+	ImGui::Begin("DebugLog");
+	if (ImGui::Button("Clear"))
+		m_LogText.clear();
+	ImGui::BeginChild("Scrolling");
+	const size_t loglines = m_LogText.size();
+	for (int n = 0; n < loglines; n++)
+		ImGui::Text("%04d: %s", n, m_LogText[n].c_str());
+	ImGui::EndChild();
+	ImGui::End();
+
+	//todo: make window with 3 buttons as requested
+	
 }

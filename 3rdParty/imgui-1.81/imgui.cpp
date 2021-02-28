@@ -751,7 +751,10 @@ CODE
 #ifndef IMGUI_DEFINE_MATH_OPERATORS
 #define IMGUI_DEFINE_MATH_OPERATORS
 #endif
+#pragma warning (disable : 26812)
+#pragma warning (push)
 #include "imgui_internal.h"
+#pragma warning (pop)
 
 // System includes
 #include <ctype.h>      // toupper
@@ -11309,6 +11312,7 @@ void ImGui::DebugNodeWindow(ImGuiWindow* window, const char* label)
 
     ImGuiContext& g = *GImGui;
     const bool is_active = window->WasActive;
+
     ImGuiTreeNodeFlags tree_node_flags = (window == g.NavWindow) ? ImGuiTreeNodeFlags_Selected : ImGuiTreeNodeFlags_None;
     if (!is_active) { PushStyleColor(ImGuiCol_Text, GetStyleColorVec4(ImGuiCol_TextDisabled)); }
     const bool open = TreeNodeEx(label, tree_node_flags, "%s '%s'%s", label, window->Name, is_active ? "" : " *Inactive*");
@@ -11349,7 +11353,6 @@ void ImGui::DebugNodeWindow(ImGuiWindow* window, const char* label)
     DebugNodeStorage(&window->StateStorage, "Storage");
     TreePop();
 }
-
 void ImGui::DebugNodeWindowSettings(ImGuiWindowSettings* settings)
 {
     Text("0x%08X \"%s\" Pos (%d,%d) Size (%d,%d) Collapsed=%d",

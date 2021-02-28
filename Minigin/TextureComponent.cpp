@@ -17,7 +17,7 @@ dae::TextureComponent::TextureComponent(const std::string& filename)
 }
 
 dae::TextureComponent::TextureComponent(const std::string& filename, float x, float y, float width,float height)
-	: m_X{x},m_Y{y},m_Width(width),m_Height(height)
+	: m_Position{x,y,0},m_Width(width),m_Height(height)
 {
 	SetTexture(filename);
 }
@@ -38,12 +38,24 @@ void dae::TextureComponent::Render() const
 	//Renderer::GetInstance().RenderTexture(*m_pTexture2D, pos.x, pos.y);
 	//const auto pos = m_pTexture2D->GetSDLTexture()
 	if (m_Width >0&& m_Height > 0)
-		Renderer::GetInstance().RenderTexture(*m_pTexture2D, m_X, m_Y,m_Width,m_Height);
+		Renderer::GetInstance().RenderTexture(*m_pTexture2D, m_Position.x, m_Position.y,m_Width,m_Height);
 	else
-		Renderer::GetInstance().RenderTexture(*m_pTexture2D, m_X, m_Y);
+		Renderer::GetInstance().RenderTexture(*m_pTexture2D, m_Position.x, m_Position.y);
 }
 
 void dae::TextureComponent::SetTexture(const std::string& filename)
 {
 	m_pTexture2D = ResourceManager::GetInstance().LoadTexture(filename);
+}
+
+void dae::TextureComponent::SetPosition(float x, float y)
+{
+	m_Position.x = x;
+	m_Position.y = y;
+}
+
+void dae::TextureComponent::SetSize(float w, float h)
+{
+	m_Width = w;
+	m_Height = h;
 }

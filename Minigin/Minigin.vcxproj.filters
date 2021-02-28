@@ -19,6 +19,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{46052665-761a-48f4-91b4-601294ed9f81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Observers">
+      <UniqueIdentifier>{2eb8de77-b40a-48d2-b696-9f68ef17e477}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -99,6 +102,12 @@
     <ClInclude Include="Command.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -172,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.81\imgui_widgets.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files\Observers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

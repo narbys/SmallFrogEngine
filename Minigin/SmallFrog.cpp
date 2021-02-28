@@ -46,35 +46,37 @@ void dae::SmallFrog::Initialize()
 /**
  * Code constructing the scene world starts here
  */
-void dae::SmallFrog::LoadGame() const
+void dae::SmallFrog::LoadGame()
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
+	//Background
 	auto go = new GameObject();
 	go->AddComponent(new TextureComponent{ "background.jpg" });
-	//go->GetComponent<TextureComponent>()->SetTexture("logo.png");
 	scene.Add(go);
-
+	
+	//Logo
 	go = new GameObject();
 	go->AddComponent(new TextureComponent{ "logo.png",100,180,500,100 });
-	//go->SetTexture("logo.png");
-	//go->SetPosition(216, 180);
 	scene.Add(go);
-
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	
+	//Title
+	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	go = new GameObject();
 	go->AddComponent(new TextComponent("Small frogs are cute", font));
 	go->GetComponent<TextComponent>()->SetPosition(150, 20);
 	scene.Add(go);
 
-	//auto to = std::make_shared<TextComponent>("Programming 4 Assignment", font);
-	//to->SetPosition(80, 20);
-	//scene.Add(to);
+	//FPS counter
 	go = new GameObject();
 	go->AddComponent(new FPSComponent());
 	go->AddComponent(new TextComponent("null", font));
 	scene.Add(go);
+
+	//Initialise Q*Bert
+	m_pQBert = new GameObject();
+	m_pQBert->AddComponent(new TextureComponent( "qbert.jpg", 100,100, 50,50));
+	scene.Add(m_pQBert);
 
 	//Input
 	InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
@@ -82,7 +84,8 @@ void dae::SmallFrog::LoadGame() const
 }
 
 void dae::SmallFrog::Cleanup()
-{
+{	
+	//End
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;

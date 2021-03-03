@@ -8,13 +8,10 @@
 #include "ResourceManager.h"
 #include <SDL.h>
 
-
+#include "ComponentIncludes.h"
 #include "Command.h"
-#include "FPSComponent.h"
-#include "TextComponent.h"
 #include "GameObject.h"
 #include "Scene.h"
-#include "TextureComponent.h"
 #include "Time.h"
 
 using namespace std;
@@ -57,7 +54,7 @@ void dae::SmallFrog::LoadGame()
 	
 	//Logo
 	go = new GameObject();
-	go->AddComponent(new TextureComponent{ "logo.png",100,180,500,100 });
+	go->AddComponent(new TextureComponent{ "observer.jpg",100,180,500,100 });
 	scene.Add(go);
 	
 	//Title
@@ -73,14 +70,25 @@ void dae::SmallFrog::LoadGame()
 	go->AddComponent(new TextComponent("null", font));
 	scene.Add(go);
 
+	//Live display observer
+	go = new GameObject();
+	const auto pText = static_cast<TextComponent*>(go->AddComponent(new TextComponent("null", font)));
+	pText->SetPosition(0, 300);
+	const auto livesDisplayObserver = std::make_shared<Display>(pText);
+	scene.Add(go);
+	
 	//Initialise Q*Bert
 	m_pQBert = new GameObject();
 	m_pQBert->AddComponent(new TextureComponent( "qbert.jpg", 100,100, 50,50));
+	LivesComponent* livesComp = new LivesComponent(3);
+	pText->SetText(std::to_string(livesComp->GetLives()));
+	livesComp->GetSubject()->AddObserver(livesDisplayObserver);
+	m_pQBert->AddComponent(livesComp);
 	scene.Add(m_pQBert);
 
 	//Input
 	InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
-	
+	InputManager::GetInstance().BindCommand(VK_PAD_B, new KillPlayerCommand(m_pQBert));
 }
 
 void dae::SmallFrog::Cleanup()

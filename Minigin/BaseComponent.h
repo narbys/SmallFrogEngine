@@ -2,11 +2,12 @@
 namespace dae
 {
 	class GameObject;
+	class Subject;
 	class BaseComponent
 	{
 	public:
-		BaseComponent() = default;
-		virtual ~BaseComponent() = default;
+		BaseComponent();
+		virtual ~BaseComponent();
 		BaseComponent(const BaseComponent& other) = delete;
 		BaseComponent(BaseComponent&& other) noexcept = delete;
 		BaseComponent& operator=(const BaseComponent& other) = delete;
@@ -15,8 +16,10 @@ namespace dae
 		virtual void Update() = 0;
 		virtual void Render() const {}
 		void SetOwner(GameObject* pGo) { m_pGameObject = pGo; }
+		Subject* GetSubject() const { return m_pSubject; }
 	protected:
 		GameObject* m_pGameObject{};
+		Subject* m_pSubject;
 	private:
 	};
 }

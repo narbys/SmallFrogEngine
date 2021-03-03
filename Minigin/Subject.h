@@ -7,11 +7,10 @@ namespace dae
 	class Subject
 	{
 	public:
-		void AddObserver(Observer* pObserver);
-		void RemoveObserver(Observer* pObserver);
-	protected:
-		void Notify(Event event);
+		void AddObserver(std::shared_ptr<Observer>pObserver);
+		void RemoveObserver(std::shared_ptr<Observer>pObserver);
+		void Notify(const Event& event);
 	private:
-		std::vector<Observer*> m_pObservers;
+		std::vector<std::shared_ptr<Observer>> m_pObservers;
 	};
 }

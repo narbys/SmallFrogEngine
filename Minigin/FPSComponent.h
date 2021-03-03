@@ -1,14 +1,14 @@
 #pragma once
 #include "BaseComponent.h"
 #include "GameObject.h"
-#include "TextComponent.h"
 namespace dae
 {
+	class TextComponent;
 	class FPSComponent final : public BaseComponent
 	{
 	public:
 		FPSComponent();
-		~FPSComponent();
+		virtual ~FPSComponent();
 		int GetFps()const;
 		void Update() override;
 	private:

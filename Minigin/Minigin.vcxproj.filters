@@ -102,10 +102,19 @@
     <ClInclude Include="Command.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Source Files\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentIncludes.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesComponent.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Source Files\Observers</Filter>
     </ClInclude>
-    <ClInclude Include="Subject.h">
+    <ClInclude Include="Event.h">
       <Filter>Source Files\Observers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -184,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

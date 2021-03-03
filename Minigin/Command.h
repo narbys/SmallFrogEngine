@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Renderer.h"
+#include "GameObject.h"
+#include "ComponentIncludes.h"
 namespace dae
 {
 	class Command
@@ -13,6 +15,19 @@ namespace dae
 	class BeepboopCommand : public Command
 	{
 	public:
-		virtual void Execute() override { Renderer::GetInstance().LogDebugText("Beepboop"); };
+		void Execute() override { Renderer::GetInstance().LogDebugText("Beepboop"); };
+	};
+
+	class KillPlayerCommand : public Command
+	{
+	public:
+		KillPlayerCommand(GameObject* pGameObject) : m_pGameObj(pGameObject){}
+		void Execute() override
+		{
+			m_pGameObj->GetComponent<LivesComponent>()->ReduceLives();
+			Renderer::GetInstance().LogDebugText("Kill Player");
+		}
+	private:
+		GameObject* m_pGameObj;
 	};
 }

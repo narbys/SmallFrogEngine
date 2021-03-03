@@ -1,4 +1,5 @@
 #pragma once
+#include "MiniginPCH.h"
 #include "BaseComponent.h"
 //#include "SceneObject.h"
 #include "TransformComponent.h"

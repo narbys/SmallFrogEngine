@@ -10,10 +10,10 @@ dae::GameObject::GameObject(const std::vector<BaseComponent*>& pComponents)
 dae::GameObject::~GameObject()
 {
 	//Remove all components when object is destroyed
-	for(auto* component : m_pComponents)
+	for(auto* pComponent : m_pComponents) 
 	{
-		delete component;
-		component = nullptr;
+		delete pComponent;
+		pComponent = nullptr;
 	}
 }
 
@@ -38,10 +38,11 @@ void dae::GameObject::Render() const
 	//Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 }
 
-void dae::GameObject::AddComponent(BaseComponent* pComponent)
+dae::BaseComponent* dae::GameObject::AddComponent(BaseComponent* pComponent)
 {
 	pComponent->SetOwner(this);
 	m_pComponents.push_back(pComponent);
+	return pComponent;
 }
 
 void dae::GameObject::SetPosition(float x, float y)

@@ -4,12 +4,13 @@
 #include <vector>
 
 #include "BaseComponent.h"
+#include "Subject.h"
+
 namespace dae
 {
-	class BaseComponent;
+	//class BaseComponent;
 	//class Texture2D;
 	class GameObject final
-		//: public SceneObject
 	{
 	public:
 		//GameObject() = default;
@@ -22,7 +23,7 @@ namespace dae
 
 		void Update();
 		void Render() const;
-		void AddComponent(BaseComponent* pComponent);
+		BaseComponent* AddComponent(BaseComponent* pComponent);
 
 		//Setters
 		void SetPosition(float x, float y);

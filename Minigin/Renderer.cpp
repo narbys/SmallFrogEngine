@@ -2,15 +2,16 @@
 #include "Renderer.h"
 #include <SDL.h>
 
-//#pragma warning (disable : 26812)
-//#pragma warning (push)
+#pragma warning (disable : 26812)
+#pragma warning (disable : 4189)
+#pragma warning (push)
 //#include "imgui.h"
-//#pragma warning (pop)
+#include "backends/imgui_impl_opengl2.h"
+#include "backends/imgui_impl_sdl.h"
+#pragma warning (pop)
 
 #include "SceneManager.h"
 #include "Texture2D.h"
-#include "backends/imgui_impl_opengl2.h"
-#include "backends/imgui_impl_sdl.h"
 
 
 void dae::Renderer::Init(SDL_Window * window)
@@ -114,7 +115,7 @@ void dae::Renderer::RenderImGuiWindows()
 			m_LogText.clear();
 		ImGui::BeginChild("Scrolling");
 		const size_t loglines = m_LogText.size();
-		for (int n = 0; n < loglines; n++)
+		for (size_t n = 0; n < loglines; n++)
 			ImGui::TextColored(m_LogText[n].color , "%04d: %s", n, m_LogText[n].text.c_str());
 		ImGui::EndChild();
 		ImGui::End();

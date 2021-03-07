@@ -4,3 +4,4 @@
 #include "TextureComponent.h"
 #include "TransformComponent.h"
 #include "LivesComponent.h"
+#include "ScoreComponent.h"

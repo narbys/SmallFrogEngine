@@ -72,23 +72,34 @@ void dae::SmallFrog::LoadGame()
 
 	//Live display observer
 	go = new GameObject();
-	const auto pText = static_cast<TextComponent*>(go->AddComponent(new TextComponent("null", font)));
-	pText->SetPosition(0, 300);
-	const auto livesDisplayObserver = std::make_shared<Display>(pText);
+	const auto pLivesText = static_cast<TextComponent*>(go->AddComponent(new TextComponent("Lives: ", font)));
+	pLivesText->SetPosition(0, 50);
+	const auto livesDisplayObserver = std::make_shared<Display>(pLivesText);
+	scene.Add(go);
+
+	//Score display observer
+	go = new GameObject();
+	const auto pScoreText= static_cast<TextComponent*>(go->AddComponent(new TextComponent("Score: 0", font)));
+	pScoreText->SetPosition(0, 80);
+	const auto scoreDisplayObserver = std::make_shared<Display>(pScoreText);
 	scene.Add(go);
 	
 	//Initialise Q*Bert
 	m_pQBert = new GameObject();
-	m_pQBert->AddComponent(new TextureComponent( "qbert.jpg", 100,100, 50,50));
-	LivesComponent* livesComp = new LivesComponent(3);
-	pText->SetText(std::to_string(livesComp->GetLives()));
-	livesComp->GetSubject()->AddObserver(livesDisplayObserver);
-	m_pQBert->AddComponent(livesComp);
+	m_pQBert->AddComponent(new TextureComponent( "qbert.jpg", 100,150, 50,50));
+	LivesComponent* pLivesComp = new LivesComponent(3);
+	pLivesText->SetText("Lives: "+std::to_string(pLivesComp->GetLives()));
+	pLivesComp->GetSubject()->AddObserver(livesDisplayObserver);
+	ScoreComponent* pScoreComp = new ScoreComponent();
+	pScoreComp->GetSubject()->AddObserver(scoreDisplayObserver);
+	m_pQBert->AddComponent(pLivesComp);
+	m_pQBert->AddComponent(pScoreComp);
 	scene.Add(m_pQBert);
 
 	//Input
 	InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
 	InputManager::GetInstance().BindCommand(VK_PAD_B, new KillPlayerCommand(m_pQBert));
+	InputManager::GetInstance().BindCommand(VK_PAD_X, new IncreaseScoreCommand(m_pQBert));
 }
 
 void dae::SmallFrog::Cleanup()

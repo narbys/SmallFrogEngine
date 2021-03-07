@@ -30,4 +30,16 @@ namespace dae
 	private:
 		GameObject* m_pGameObj;
 	};
+	class IncreaseScoreCommand : public Command
+	{
+	public:
+		IncreaseScoreCommand(GameObject* pGameObject) : m_pGameObj(pGameObject) {}
+		void Execute() override
+		{
+			m_pGameObj->GetComponent<ScoreComponent>()->AddToScore(25);
+			Renderer::GetInstance().LogDebugText("Added 25 to score\n");
+		}
+	private:
+		GameObject* m_pGameObj;
+	};
 }

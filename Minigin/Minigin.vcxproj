@@ -212,6 +212,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="SmallFrog.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="Renderer.h" />
@@ -241,6 +242,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="SmallFrog.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -117,6 +117,9 @@
     <ClInclude Include="Event.h">
       <Filter>Source Files\Observers</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -195,6 +198,9 @@
       <Filter>Source Files\Observers</Filter>
     </ClCompile>
     <ClCompile Include="LivesComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

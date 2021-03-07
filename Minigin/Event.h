@@ -7,7 +7,8 @@ namespace dae
 	enum class Events
 	{
 		INIT,
-		PLAYER_DEATH
+		PLAYER_DEATH,
+		SCORE_INCREASE
 	};
 
 	struct IEventData abstract

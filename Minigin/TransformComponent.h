@@ -1,7 +1,8 @@
 #pragma once
 #pragma warning(push)
 #pragma warning (disable:4201)
-#include <glm/vec3.hpp>
+#pragma warning (disable:4616)
+#include <glm/glm.hpp>
 #pragma warning(pop)
 namespace dae
 {

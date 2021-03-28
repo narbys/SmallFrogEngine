@@ -3,6 +3,8 @@
 #include "Renderer.h"
 #include "GameObject.h"
 #include "ComponentIncludes.h"
+#include "ServiceLocator.h"
+
 namespace dae
 {
 	class Command
@@ -15,7 +17,11 @@ namespace dae
 	class BeepboopCommand : public Command
 	{
 	public:
-		void Execute() override { Renderer::GetInstance().LogDebugText("Beepboop"); };
+		void Execute() override
+		{
+			Renderer::GetInstance().LogDebugText("Beepboop");
+			ServiceLocator::GetSoundSystem()->PlaySound("TempName", 3);
+		};
 	};
 
 	class KillPlayerCommand : public Command

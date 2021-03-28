@@ -13,12 +13,15 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "Time.h"
+#include "SoundSystem.h"
+#include "ServiceLocator.h"
 
 using namespace std;
 using namespace std::chrono;
 
 void dae::SmallFrog::Initialize()
 {
+	_putenv("SDL_AUDIODRIVER=DirectSound");
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
@@ -100,10 +103,17 @@ void dae::SmallFrog::LoadGame()
 	InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
 	InputManager::GetInstance().BindCommand(VK_PAD_B, new KillPlayerCommand(m_pQBert));
 	InputManager::GetInstance().BindCommand(VK_PAD_X, new IncreaseScoreCommand(m_pQBert));
+
+	//soundsystem test
+	SimpleSDL2AudioSoundSystem* pss = new SimpleSDL2AudioSoundSystem();
+	ServiceLocator::Provide(pss);
+	
 }
 
 void dae::SmallFrog::Cleanup()
-{	
+{
+	ServiceLocator::Cleanup();
+	
 	//End
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);

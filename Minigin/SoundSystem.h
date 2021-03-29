@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <mutex>
 #include <queue>
 
 namespace dae
@@ -27,12 +28,17 @@ namespace dae
 	{
 	public:
 		SimpleSDL2AudioSoundSystem();
-		virtual ~SimpleSDL2AudioSoundSystem() = default;
+		virtual ~SimpleSDL2AudioSoundSystem();
 		void PlaySound(const std::string& filename, int volume) override;
 		void PauseSound() override;
 		void StopSound() override;
 		void StopAllSounds() override;
+
+		void ProcessEventQueue();
 	private:
+		std::queue<std::pair<std::string, int>> m_EventQueue;
+		bool m_IsRunning;
+		std::mutex m_Mutex;
 	};
 
 }

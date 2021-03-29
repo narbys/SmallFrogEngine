@@ -8,6 +8,8 @@
 #include "ResourceManager.h"
 #include <SDL.h>
 
+
+#include "audio.h"
 #include "ComponentIncludes.h"
 #include "Command.h"
 #include "GameObject.h"
@@ -27,6 +29,12 @@ void dae::SmallFrog::Initialize()
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
+	// Initialize SDL2 Audio only
+	SDL_Init(SDL_INIT_AUDIO);
+
+	// Initialize Simple-SDL2-Audio
+	initAudio();
+	
 	m_Window = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_UNDEFINED,
@@ -113,7 +121,9 @@ void dae::SmallFrog::LoadGame()
 void dae::SmallFrog::Cleanup()
 {
 	ServiceLocator::Cleanup();
-	
+
+	// End Simple-SDL2-Audio
+	endAudio();
 	//End
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);

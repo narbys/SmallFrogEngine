@@ -20,7 +20,7 @@ namespace dae
 		void Execute() override
 		{
 			Renderer::GetInstance().LogDebugText("Beepboop");
-			ServiceLocator::GetSoundSystem()->PlaySound("TempName", 3);
+			ServiceLocator::GetSoundSystem()->PlaySound("../Data/door1.wav", 10);
 		};
 	};
 

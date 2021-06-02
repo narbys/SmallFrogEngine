@@ -37,7 +37,7 @@ namespace dae
 		void ProcessEventQueue();
 	private:
 		std::queue<std::pair<std::string, int>> m_EventQueue;
-		bool m_IsRunning;
+		std::atomic<bool> m_IsRunning;
 		std::mutex m_Mutex;
 	};
 

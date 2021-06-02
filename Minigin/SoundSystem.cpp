@@ -16,7 +16,7 @@ dae::SimpleSDL2AudioSoundSystem::SimpleSDL2AudioSoundSystem()
 
 dae::SimpleSDL2AudioSoundSystem::~SimpleSDL2AudioSoundSystem()
 {
-	m_IsRunning = false;
+	m_IsRunning.store(false);
 }
 
 void dae::SimpleSDL2AudioSoundSystem::PlaySound(const std::string& filename, int volume)
@@ -24,7 +24,7 @@ void dae::SimpleSDL2AudioSoundSystem::PlaySound(const std::string& filename, int
 	Renderer::GetInstance().LogDebugText("Playing sound "+filename+" at "+std::to_string(volume));
 	const std::pair<std::string, int> data{ filename, volume };
 	
-	std::lock_guard<std::mutex> lock(m_Mutex);
+	//std::lock_guard<std::mutex> lock(m_Mutex);
 	m_EventQueue.push(data);
 }
 
@@ -42,7 +42,7 @@ void dae::SimpleSDL2AudioSoundSystem::StopAllSounds()
 
 void dae::SimpleSDL2AudioSoundSystem::ProcessEventQueue()
 {	
-	while(m_IsRunning)
+	while(m_IsRunning.load()==true)
 	{
 		std::lock_guard<std::mutex> lock(m_Mutex);
 		if (!m_EventQueue.empty())

@@ -12,6 +12,7 @@
 #include "audio.h"
 #include "ComponentIncludes.h"
 #include "Command.h"
+#include "Game.h"
 #include "GameObject.h"
 #include "Scene.h"
 #include "Time.h"
@@ -49,6 +50,10 @@ void frog::SmallFrog::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
+
+	//soundsystem test
+	SimpleSDL2AudioSoundSystem* pss = new SimpleSDL2AudioSoundSystem();
+	ServiceLocator::Provide(pss);
 }
 
 /**
@@ -56,65 +61,70 @@ void frog::SmallFrog::Initialize()
  */
 void frog::SmallFrog::LoadGame()
 {
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	if (m_pGame) m_pGame->LoadGame();
+	//auto& scene = SceneManager::GetInstance().CreateScene("");
 
-	//Background
-	auto go = new GameObject();
-	go->AddComponent(new TextureComponent{ "background.jpg" });
-	scene.Add(go);
-	
-	//Logo
-	go = new GameObject();
-	go->AddComponent(new TextureComponent{ "observer.jpg",100,180,500,100 });
-	scene.Add(go);
-	
-	//Title
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	go = new GameObject();
-	go->AddComponent(new TextComponent("Small frogs are cute", font));
-	go->GetComponent<TextComponent>()->SetPosition(150, 20);
-	scene.Add(go);
+	////Background
+	//auto go = new GameObject();
+	//go->AddComponent(new TextureComponent{ "background.jpg" });
+	//scene.Add(go);
+	//
+	////Logo
+	//go = new GameObject();
+	//go->AddComponent(new TextureComponent{ "observer.jpg",100,180,500,100 });
+	//scene.Add(go);
+	//
+	////Title
+	//auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//go = new GameObject();
+	//go->AddComponent(new TextComponent("Small frogs are cute", font));
+	//go->GetComponent<TextComponent>()->SetPosition(150, 20);
+	//scene.Add(go);
 
-	//FPS counter
-	go = new GameObject();
-	go->AddComponent(new FPSComponent());
-	go->AddComponent(new TextComponent("null", font));
-	scene.Add(go);
+	////FPS counter
+	//go = new GameObject();
+	//go->AddComponent(new FPSComponent());
+	//go->AddComponent(new TextComponent("null", font));
+	//scene.Add(go);
 
-	//Live display observer
-	go = new GameObject();
-	const auto pLivesText = static_cast<TextComponent*>(go->AddComponent(new TextComponent("Lives: ", font)));
-	pLivesText->SetPosition(0, 50);
-	const auto livesDisplayObserver = std::make_shared<Display>(pLivesText);
-	scene.Add(go);
+	////Live display observer
+	//go = new GameObject();
+	//const auto pLivesText = static_cast<TextComponent*>(go->AddComponent(new TextComponent("Lives: ", font)));
+	//pLivesText->SetPosition(0, 50);
+	//const auto livesDisplayObserver = std::make_shared<Display>(pLivesText);
+	//scene.Add(go);
 
-	//Score display observer
-	go = new GameObject();
-	const auto pScoreText= static_cast<TextComponent*>(go->AddComponent(new TextComponent("Score: 0", font)));
-	pScoreText->SetPosition(0, 80);
-	const auto scoreDisplayObserver = std::make_shared<Display>(pScoreText);
-	scene.Add(go);
-	
-	//Initialise Q*Bert
-	m_pQBert = new GameObject();
-	m_pQBert->AddComponent(new TextureComponent( "qbert.jpg", 100,150, 50,50));
-	LivesComponent* pLivesComp = new LivesComponent(3);
-	pLivesText->SetText("Lives: "+std::to_string(pLivesComp->GetLives()));
-	pLivesComp->GetSubject()->AddObserver(livesDisplayObserver);
-	ScoreComponent* pScoreComp = new ScoreComponent();
-	pScoreComp->GetSubject()->AddObserver(scoreDisplayObserver);
-	m_pQBert->AddComponent(pLivesComp);
-	m_pQBert->AddComponent(pScoreComp);
-	scene.Add(m_pQBert);
+	////Score display observer
+	//go = new GameObject();
+	//const auto pScoreText= static_cast<TextComponent*>(go->AddComponent(new TextComponent("Score: 0", font)));
+	//pScoreText->SetPosition(0, 80);
+	//const auto scoreDisplayObserver = std::make_shared<Display>(pScoreText);
+	//scene.Add(go);
+	//
+	////Initialise Q*Bert
+	//m_pQBert = new GameObject();
+	//m_pQBert->AddComponent(new TextureComponent( "qbert.jpg", 100,150, 50,50));
+	//LivesComponent* pLivesComp = new LivesComponent(3);
+	//pLivesText->SetText("Lives: "+std::to_string(pLivesComp->GetLives()));
+	//pLivesComp->GetSubject()->AddObserver(livesDisplayObserver);
+	//ScoreComponent* pScoreComp = new ScoreComponent();
+	//pScoreComp->GetSubject()->AddObserver(scoreDisplayObserver);
+	//m_pQBert->AddComponent(pLivesComp);
+	//m_pQBert->AddComponent(pScoreComp);
+	//scene.Add(m_pQBert);
 
-	//Input
-	InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
-	InputManager::GetInstance().BindCommand(VK_PAD_B, new KillPlayerCommand(m_pQBert));
-	InputManager::GetInstance().BindCommand(VK_PAD_X, new IncreaseScoreCommand(m_pQBert));
+	////Input
+	//InputManager::GetInstance().BindCommand(VK_PAD_A, new BeepboopCommand());
+	//InputManager::GetInstance().BindCommand(VK_PAD_B, new KillPlayerCommand(m_pQBert));
+	//InputManager::GetInstance().BindCommand(VK_PAD_X, new IncreaseScoreCommand(m_pQBert));
 
+
+
+	//****************
 	//soundsystem test
-	SimpleSDL2AudioSoundSystem* pss = new SimpleSDL2AudioSoundSystem();
-	ServiceLocator::Provide(pss);
+	//****************
+	//SimpleSDL2AudioSoundSystem* pss = new SimpleSDL2AudioSoundSystem();
+	//ServiceLocator::Provide(pss);
 	
 }
 

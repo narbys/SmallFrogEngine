@@ -2,7 +2,7 @@
 //Credit to Rhidian De Wit
 #include <tuple>
 
-namespace dae
+namespace frog
 {
 	enum class Events
 	{

@@ -4,33 +4,33 @@
 #include "ResourceManager.h"
 #include "Texture2D.h"
 
-dae::TextureComponent::TextureComponent()
+frog::TextureComponent::TextureComponent()
 	:m_pTexture2D(nullptr)
 {
 }
 
-dae::TextureComponent::TextureComponent(const std::string& filename)
+frog::TextureComponent::TextureComponent(const std::string& filename)
 {
 	SetTexture(filename);
 }
 
-dae::TextureComponent::TextureComponent(const std::string& filename, float x, float y, float width,float height)
+frog::TextureComponent::TextureComponent(const std::string& filename, float x, float y, float width,float height)
 	: m_Position{x,y,0},m_Width(width),m_Height(height)
 {
 	SetTexture(filename);
 }
 
-dae::TextureComponent::~TextureComponent()
+frog::TextureComponent::~TextureComponent()
 {
 	delete m_pTexture2D;
 	m_pTexture2D = nullptr;
 }
 
-void dae::TextureComponent::Update()
+void frog::TextureComponent::Update()
 {
 }
 
-void dae::TextureComponent::Render() const
+void frog::TextureComponent::Render() const
 {
 	//const auto pos = m_Transform.GetPosition();
 	//Renderer::GetInstance().RenderTexture(*m_pTexture2D, pos.x, pos.y);
@@ -41,18 +41,18 @@ void dae::TextureComponent::Render() const
 		Renderer::GetInstance().RenderTexture(*m_pTexture2D, m_Position.x, m_Position.y);
 }
 
-void dae::TextureComponent::SetTexture(const std::string& filename)
+void frog::TextureComponent::SetTexture(const std::string& filename)
 {
 	m_pTexture2D = ResourceManager::GetInstance().LoadTexture(filename);
 }
 
-void dae::TextureComponent::SetPosition(float x, float y)
+void frog::TextureComponent::SetPosition(float x, float y)
 {
 	m_Position.x = x;
 	m_Position.y = y;
 }
 
-void dae::TextureComponent::SetSize(float w, float h)
+void frog::TextureComponent::SetSize(float w, float h)
 {
 	m_Width = w;
 	m_Height = h;

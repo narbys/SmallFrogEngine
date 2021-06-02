@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 
-namespace dae
+namespace frog
 {
 	//class SceneObject;
 	class GameObject;

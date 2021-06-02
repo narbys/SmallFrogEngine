@@ -2,12 +2,12 @@
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
-dae::GameObject::GameObject(const std::vector<BaseComponent*>& pComponents)
+frog::GameObject::GameObject(const std::vector<BaseComponent*>& pComponents)
 	: m_pComponents(pComponents)
 {
 }
 
-dae::GameObject::~GameObject()
+frog::GameObject::~GameObject()
 {
 	//Remove all components when object is destroyed
 	for(auto* pComponent : m_pComponents) 
@@ -17,7 +17,7 @@ dae::GameObject::~GameObject()
 	}
 }
 
-void dae::GameObject::Update()
+void frog::GameObject::Update()
 {
 	//update it's components or core aspects of the GameObject
 	for (auto* pCo : m_pComponents)
@@ -26,7 +26,7 @@ void dae::GameObject::Update()
 	}
 }
 
-void dae::GameObject::Render() const
+void frog::GameObject::Render() const
 {
 	//Go through it's components and call their render
 	for(auto* pCo : m_pComponents)
@@ -38,14 +38,14 @@ void dae::GameObject::Render() const
 	//Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 }
 
-dae::BaseComponent* dae::GameObject::AddComponent(BaseComponent* pComponent)
+frog::BaseComponent* frog::GameObject::AddComponent(BaseComponent* pComponent)
 {
 	pComponent->SetOwner(this);
 	m_pComponents.push_back(pComponent);
 	return pComponent;
 }
 
-void dae::GameObject::SetPosition(float x, float y)
+void frog::GameObject::SetPosition(float x, float y)
 {
 	m_Transform.SetPosition(x, y, 0.0f);
 }

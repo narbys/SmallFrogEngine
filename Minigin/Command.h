@@ -5,7 +5,7 @@
 #include "ComponentIncludes.h"
 #include "ServiceLocator.h"
 
-namespace dae
+namespace frog
 {
 	class Command
 	{

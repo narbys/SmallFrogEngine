@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 
-using namespace dae;
+using namespace frog;
 
 unsigned int Scene::m_IdCounter = 0;
 

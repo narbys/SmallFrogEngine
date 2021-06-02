@@ -14,7 +14,7 @@
 #include "Texture2D.h"
 
 
-void dae::Renderer::Init(SDL_Window * window)
+void frog::Renderer::Init(SDL_Window * window)
 {
 	m_pWindow = window;
 	m_pRenderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -29,7 +29,7 @@ void dae::Renderer::Init(SDL_Window * window)
 	ImGui_ImplOpenGL2_Init();
 }
 
-void dae::Renderer::Render()
+void frog::Renderer::Render()
 {
 	SDL_RenderClear(m_pRenderer);
 
@@ -52,7 +52,7 @@ void dae::Renderer::Render()
 	SDL_RenderPresent(m_pRenderer);
 }
 
-void dae::Renderer::Destroy()
+void frog::Renderer::Destroy()
 {
 	ImGui_ImplOpenGL2_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
@@ -65,7 +65,7 @@ void dae::Renderer::Destroy()
 	}
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
+void frog::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -74,7 +74,7 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
+void frog::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
 {
 	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
@@ -84,14 +84,14 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
-void dae::Renderer::LogDebugText(const std::string& txt, const ImVec4& col)
+void frog::Renderer::LogDebugText(const std::string& txt, const ImVec4& col)
 {
 	if (!m_DebugLogOpen)
 		m_DebugLogOpen = true;
 	m_LogText.push_back({ txt,col });
 }
 
-int dae::Renderer::GetOpenGLDriverIndex()
+int frog::Renderer::GetOpenGLDriverIndex()
 {
 	auto openglIndex = 1;
 	const auto  driverCount = SDL_GetNumRenderDrivers();
@@ -105,7 +105,7 @@ int dae::Renderer::GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
-void dae::Renderer::RenderImGuiWindows()
+void frog::Renderer::RenderImGuiWindows()
 {
 	//debug log window
 	if (m_DebugLogOpen)

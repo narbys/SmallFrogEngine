@@ -3,7 +3,7 @@
 #include <mutex>
 #include <queue>
 
-namespace dae
+namespace frog
 {
 
 	class ISoundSystem abstract

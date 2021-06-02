@@ -1,7 +1,7 @@
 #pragma once
 #include "SoundSystem.h"
 
-namespace dae
+namespace frog
 {
 
 	class ServiceLocator final

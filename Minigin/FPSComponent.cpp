@@ -3,21 +3,21 @@
 #include "TextComponent.h"
 #include "Time.h"
 
-dae::FPSComponent::FPSComponent()
+frog::FPSComponent::FPSComponent()
 {
 	
 }
 
-dae::FPSComponent::~FPSComponent()
+frog::FPSComponent::~FPSComponent()
 {
 }
 
-int dae::FPSComponent::GetFps() const
+int frog::FPSComponent::GetFps() const
 {
 	return m_Fps;
 }
 
-void dae::FPSComponent::Update()
+void frog::FPSComponent::Update()
 {
 	if(!m_pText)
 		m_pText=m_pGameObject->GetComponent<TextComponent>();

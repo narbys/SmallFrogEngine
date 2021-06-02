@@ -7,11 +7,11 @@
 #include "Font.h"
 #include "Texture2D.h"
 
-dae::TextComponent::TextComponent(const std::string& text, const std::shared_ptr<Font>& font) 
+frog::TextComponent::TextComponent(const std::string& text, const std::shared_ptr<Font>& font) 
 	: m_NeedsUpdate(true), m_Text(text), m_Font(font), m_Texture(nullptr)
 { }
 
-void dae::TextComponent::Update()
+void frog::TextComponent::Update()
 {
 	if (m_NeedsUpdate)
 	{
@@ -32,7 +32,7 @@ void dae::TextComponent::Update()
 	}
 }
 
-void dae::TextComponent::Render() const
+void frog::TextComponent::Render() const
 {
 	if (m_Texture != nullptr)
 	{
@@ -42,13 +42,13 @@ void dae::TextComponent::Render() const
 }
 
 // This implementation uses the "dirty flag" pattern
-void dae::TextComponent::SetText(const std::string& text)
+void frog::TextComponent::SetText(const std::string& text)
 {
 	m_Text = text;
 	m_NeedsUpdate = true;
 }
 
-void dae::TextComponent::SetPosition(const float x, const float y)
+void frog::TextComponent::SetPosition(const float x, const float y)
 {
 	m_Transform.SetPosition(x, y, 0.0f);
 }

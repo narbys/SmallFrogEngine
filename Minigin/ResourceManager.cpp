@@ -8,7 +8,7 @@
 #include "Texture2D.h"
 #include "Font.h"
 
-void dae::ResourceManager::Init(const std::string& dataPath)
+void frog::ResourceManager::Init(const std::string& dataPath)
 {
 	m_DataPath = dataPath;
 
@@ -30,7 +30,7 @@ void dae::ResourceManager::Init(const std::string& dataPath)
 	}
 }
 
-dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file) const
+frog::Texture2D* frog::ResourceManager::LoadTexture(const std::string& file) const
 {
 	const auto fullPath = m_DataPath + file;
 	const auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
@@ -42,7 +42,7 @@ dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file) const
 	return new Texture2D{texture};
 }
 
-std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
+std::shared_ptr<frog::Font> frog::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
 {
 	return std::make_shared<Font>(m_DataPath + file, size);
 }

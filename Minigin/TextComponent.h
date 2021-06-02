@@ -4,7 +4,7 @@
 //#include "SceneObject.h"
 #include "TransformComponent.h"
 
-namespace dae
+namespace frog
 {
 	class Font;
 	class Texture2D;

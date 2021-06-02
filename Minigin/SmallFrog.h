@@ -2,7 +2,7 @@
 struct SDL_Window;
 
 
-namespace dae
+namespace frog
 {
 	class GameObject;
 	

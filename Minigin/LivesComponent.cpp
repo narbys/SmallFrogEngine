@@ -1,31 +1,31 @@
 #include "LivesComponent.h"
 
-dae::LivesComponent::LivesComponent(int lives)
+frog::LivesComponent::LivesComponent(int lives)
 	: m_Lives(lives)
 {
 }
 
-dae::LivesComponent::~LivesComponent()
+frog::LivesComponent::~LivesComponent()
 {
 }
 
-int dae::LivesComponent::GetLives() const
+int frog::LivesComponent::GetLives() const
 {
 	return m_Lives;
 }
 
-void dae::LivesComponent::ReduceLives()
+void frog::LivesComponent::ReduceLives()
 {
 	m_Lives--;
 	m_pSubject->Notify({ Events::PLAYER_DEATH, m_Lives });
 }
 
-void dae::LivesComponent::IncreaseLives()
+void frog::LivesComponent::IncreaseLives()
 {
 	m_Lives++;
 }
 
-void dae::LivesComponent::SetLives(int lifeAmount)
+void frog::LivesComponent::SetLives(int lifeAmount)
 {
 	m_Lives = lifeAmount;
 }

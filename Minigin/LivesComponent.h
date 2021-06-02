@@ -2,7 +2,7 @@
 #include "BaseComponent.h"
 #include "Subject.h"
 
-namespace dae
+namespace frog
 {
     class LivesComponent final : public BaseComponent
     {

@@ -4,7 +4,7 @@
 #pragma warning (disable:4616)
 #include <glm/glm.hpp>
 #pragma warning(pop)
-namespace dae
+namespace frog
 {
 	class TransformComponent final
 	{

@@ -1,14 +1,14 @@
 #include "ServiceLocator.h"
 
-dae::ISoundSystem* dae::ServiceLocator::m_pSoundService{};
-dae::NullSoundSystem* dae::ServiceLocator::m_pNullService{};
+frog::ISoundSystem* frog::ServiceLocator::m_pSoundService{};
+frog::NullSoundSystem* frog::ServiceLocator::m_pNullService{};
 
-dae::ISoundSystem* dae::ServiceLocator::GetSoundSystem()
+frog::ISoundSystem* frog::ServiceLocator::GetSoundSystem()
 {
 	return m_pSoundService;
 }
 
-void dae::ServiceLocator::Provide(ISoundSystem* pService)
+void frog::ServiceLocator::Provide(ISoundSystem* pService)
 {
 	if (pService == nullptr)
 		m_pSoundService = m_pNullService;
@@ -19,7 +19,7 @@ void dae::ServiceLocator::Provide(ISoundSystem* pService)
 	}
 }
 
-void dae::ServiceLocator::Cleanup()
+void frog::ServiceLocator::Cleanup()
 {
 	delete m_pNullService;
 	m_pNullService = nullptr;

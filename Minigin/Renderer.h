@@ -9,7 +9,7 @@
 struct SDL_Window;
 struct SDL_Renderer;
 
-namespace dae
+namespace frog
 {
 	class Texture2D;
 	/**

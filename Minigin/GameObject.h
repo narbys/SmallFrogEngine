@@ -6,7 +6,7 @@
 #include "BaseComponent.h"
 #include "Subject.h"
 
-namespace dae
+namespace frog
 {
 	//class BaseComponent;
 	//class Texture2D;

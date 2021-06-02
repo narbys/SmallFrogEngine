@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 
-namespace dae
+namespace frog
 {
 	class ScoreComponent : public BaseComponent
 	{

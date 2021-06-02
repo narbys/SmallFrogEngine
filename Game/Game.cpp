@@ -2,7 +2,7 @@
 
 int main()
 {
-    dae::SmallFrog engine;
+    frog::SmallFrog engine;
     engine.Run();
     return 0;
 }

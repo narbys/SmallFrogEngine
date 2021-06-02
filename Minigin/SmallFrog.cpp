@@ -21,7 +21,7 @@
 using namespace std;
 using namespace std::chrono;
 
-void dae::SmallFrog::Initialize()
+void frog::SmallFrog::Initialize()
 {
 	_putenv("SDL_AUDIODRIVER=DirectSound");
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -54,7 +54,7 @@ void dae::SmallFrog::Initialize()
 /**
  * Code constructing the scene world starts here
  */
-void dae::SmallFrog::LoadGame()
+void frog::SmallFrog::LoadGame()
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
@@ -118,7 +118,7 @@ void dae::SmallFrog::LoadGame()
 	
 }
 
-void dae::SmallFrog::Cleanup()
+void frog::SmallFrog::Cleanup()
 {
 	ServiceLocator::Cleanup();
 
@@ -131,7 +131,7 @@ void dae::SmallFrog::Cleanup()
 	SDL_Quit();
 }
 
-void dae::SmallFrog::Run()
+void frog::SmallFrog::Run()
 {
 	Initialize();
 

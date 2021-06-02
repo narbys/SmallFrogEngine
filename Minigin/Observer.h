@@ -2,7 +2,7 @@
 #include "Event.h"
 #include "TextComponent.h"
 #include "Renderer.h"
-namespace dae
+namespace frog
 {
 	class TextComponent;
 	class GameObject;

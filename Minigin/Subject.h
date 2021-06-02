@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "Observer.h"
-namespace dae
+namespace frog
 {
 	class Subject
 	{

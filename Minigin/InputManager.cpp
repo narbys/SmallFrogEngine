@@ -4,7 +4,7 @@
 
 #include "Command.h"
 
-dae::InputManager::~InputManager()
+frog::InputManager::~InputManager()
 {
 	for(auto c : m_KeyMap)
 	{
@@ -13,7 +13,7 @@ dae::InputManager::~InputManager()
 	}
 }
 
-bool dae::InputManager::ProcessInput()
+bool frog::InputManager::ProcessInput()
 {
 	auto err = XInputGetKeystroke(0, 0, &m_CurrentStroke);
 	if (err == ERROR_NOT_CONNECTED)
@@ -41,14 +41,14 @@ bool dae::InputManager::ProcessInput()
 	return true;
 }
 
-bool dae::InputManager::IsPressed(WORD button) const
+bool frog::InputManager::IsPressed(WORD button) const
 {
 	if (m_CurrentStroke.Flags == XINPUT_KEYSTROKE_KEYDOWN && m_CurrentStroke.VirtualKey == button)
 		return true;
 	return false;
 }
 
-void dae::InputManager::BindCommand(WORD button, Command* command)
+void frog::InputManager::BindCommand(WORD button, Command* command)
 {
 	m_KeyMap[button] = command;
 }

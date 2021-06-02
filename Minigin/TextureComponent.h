@@ -6,7 +6,7 @@
 #include "glm/glm.hpp"
 #pragma warning(pop)
 
-namespace dae
+namespace frog
 {
 	class Texture2D;
 	class TextureComponent final : public BaseComponent

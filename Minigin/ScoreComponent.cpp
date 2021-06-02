@@ -2,17 +2,17 @@
 
 #include "Subject.h"
 
-int dae::ScoreComponent::GetScore() const
+int frog::ScoreComponent::GetScore() const
 {
 	return m_Score;
 }
 
-void dae::ScoreComponent::AddToScore(int scoreToAdd)
+void frog::ScoreComponent::AddToScore(int scoreToAdd)
 {
 	m_Score += scoreToAdd;
 	m_pSubject->Notify({ Events::SCORE_INCREASE,m_Score });
 }
 
-void dae::ScoreComponent::Update()
+void frog::ScoreComponent::Update()
 {
 }

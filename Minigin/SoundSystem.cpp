@@ -10,13 +10,15 @@
 frog::SimpleSDL2AudioSoundSystem::SimpleSDL2AudioSoundSystem()
 	: m_IsRunning{true}
 {
-	std::thread thread(&SimpleSDL2AudioSoundSystem::ProcessEventQueue, this);
-	thread.detach();
+	m_Thread =std::thread(&SimpleSDL2AudioSoundSystem::ProcessEventQueue, this);
+	//std::thread thread(&SimpleSDL2AudioSoundSystem::ProcessEventQueue, this);
+	//thread.detach();
 }
 
 frog::SimpleSDL2AudioSoundSystem::~SimpleSDL2AudioSoundSystem()
 {
 	m_IsRunning.store(false);
+	m_Thread.join();
 }
 
 void frog::SimpleSDL2AudioSoundSystem::PlaySound(const std::string& filename, int volume)

@@ -43,8 +43,9 @@ void frog::Renderer::Render()
 	//
 	//if (m_ShowDemo)
 		//ImGui::ShowDemoWindow(&m_ShowDemo);
+#ifdef  _DEBUG
 	RenderImGuiWindows();
-
+#endif
 	
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());

@@ -1,0 +1,12 @@
+[
+
+    {
+        "StartPosition":
+        {
+            "x":300,
+            "y":180
+        },
+        "InactiveImage":"ActiveTile1.png",
+        "ActiveImage":"InactiveTile1.png"
+    }
+]

@@ -3,14 +3,14 @@
 
 namespace frog
 {
-	class Time : public Singleton<Time>
+	class GameTime : public Singleton<GameTime>
 	{
 	public:
-		friend class Singleton<Time>;
+		friend class Singleton<GameTime>;
 		float GetDeltaTime() const;
 		void SetDeltaTime(float dt);
 	private:
-		Time() = default;
+		GameTime() = default;
 		float m_DeltaTime{};
 	};
 }

@@ -13,8 +13,7 @@ namespace frog
 	{
 	public:
 		TextureComponent();
-		TextureComponent(const std::string& filename);
-		TextureComponent(const std::string& filename,float x, float y, float width=0, float height=0);
+		TextureComponent(const std::string& filename, float width=0, float height=0);
 		
 		~TextureComponent();
 		TextureComponent(const TextureComponent& other) = delete;
@@ -25,11 +24,11 @@ namespace frog
 		void Update() override;
 		void Render() const override;
 		void SetTexture(const std::string& filename);
-		void SetPosition(float x, float y);
+		//void SetPosition(float x, float y);
 		void SetSize(float w, float h);
 	private:
 		Texture2D* m_pTexture2D;
 		float m_Width{}, m_Height{};
-		glm::vec3 m_Position{};
+		//glm::vec3 m_Position{};
 	};
 }

@@ -3,7 +3,7 @@
 
 #pragma warning (disable : 26812)
 #pragma warning (push)
-#include "imgui.h"
+#include "../3rdParty/imgui-1.81/imgui.h"
 #pragma warning (pop)
 
 struct SDL_Window;

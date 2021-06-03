@@ -25,14 +25,17 @@ namespace frog
 		void Render() const;
 		BaseComponent* AddComponent(BaseComponent* pComponent);
 
+		//Getters
+		TransformComponent* GetTransform() const;
+		
 		//Setters
-		void SetPosition(float x, float y);
+		//void SetPosition(float x, float y);
 		
 		//Template Functions
 		template <typename T>
 		T* GetComponent() const;
 	private:
-		TransformComponent m_Transform;
+		TransformComponent* m_pTransform;
 		std::vector<BaseComponent*> m_pComponents;
 	};
 	

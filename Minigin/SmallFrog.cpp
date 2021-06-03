@@ -15,7 +15,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Scene.h"
-#include "Time.h"
+#include "GameTime.h"
 #include "SoundSystem.h"
 #include "ServiceLocator.h"
 
@@ -139,6 +139,7 @@ void frog::SmallFrog::Cleanup()
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();
+	delete m_pGame;
 }
 
 void frog::SmallFrog::Run()
@@ -162,7 +163,7 @@ void frog::SmallFrog::Run()
 		{
 			const auto currentTime = high_resolution_clock::now();
 			const float deltaTime = duration<float>(currentTime - lastTime).count();
-			Time::GetInstance().SetDeltaTime(deltaTime);
+			GameTime::GetInstance().SetDeltaTime(deltaTime);
 			lastTime = currentTime;
 			lag += deltaTime;
 			doContinue = input.ProcessInput();

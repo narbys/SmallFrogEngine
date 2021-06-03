@@ -94,7 +94,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Minigin.lib;SDL2.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_main.lib;OpenGL32.lib;GLU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Minigin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R/Y</Command>
@@ -116,7 +116,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Minigin.lib;SDL2.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_main.lib;OpenGL32.lib;GLU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Minigin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R/Y</Command>
@@ -134,7 +134,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Minigin.lib;SDL2.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_main.lib;OpenGL32.lib;GLU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Minigin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R/Y</Command>
@@ -156,7 +156,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Minigin.lib;SDL2.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_main.lib;OpenGL32.lib;GLU32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Minigin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R/Y</Command>
@@ -164,9 +164,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LevelComponent.cpp" />
     <ClCompile Include="QBertGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LevelComponent.h" />
     <ClInclude Include="QBertGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

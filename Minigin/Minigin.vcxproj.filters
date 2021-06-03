@@ -60,7 +60,7 @@
     <ClInclude Include="SmallFrog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="GameTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseComponent.h">
@@ -170,7 +170,7 @@
     <ClCompile Include="SmallFrog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="GameTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">

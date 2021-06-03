@@ -9,6 +9,8 @@ namespace frog
 	class TransformComponent final
 	{
 	public:
+		TransformComponent() = default;
+		TransformComponent(float x, float y, float z);
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(float x, float y, float z);
 	private:

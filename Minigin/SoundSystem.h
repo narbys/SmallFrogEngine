@@ -38,6 +38,7 @@ namespace frog
 	private:
 		std::queue<std::pair<std::string, int>> m_EventQueue;
 		std::atomic<bool> m_IsRunning;
+		std::thread m_Thread;
 		std::mutex m_Mutex;
 	};
 

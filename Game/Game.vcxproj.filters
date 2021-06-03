@@ -21,9 +21,15 @@
     <ClCompile Include="QBertGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LevelComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QBertGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

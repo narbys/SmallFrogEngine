@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 frog::GameObject::GameObject(const std::vector<BaseComponent*>& pComponents)
-	: m_pComponents(pComponents)
+	: m_pTransform(new TransformComponent(0,0,0)), m_pComponents(pComponents)
 {
 }
 
@@ -15,6 +15,7 @@ frog::GameObject::~GameObject()
 		delete pComponent;
 		pComponent = nullptr;
 	}
+	delete m_pTransform;
 }
 
 void frog::GameObject::Update()
@@ -45,7 +46,12 @@ frog::BaseComponent* frog::GameObject::AddComponent(BaseComponent* pComponent)
 	return pComponent;
 }
 
-void frog::GameObject::SetPosition(float x, float y)
+frog::TransformComponent* frog::GameObject::GetTransform() const
 {
-	m_Transform.SetPosition(x, y, 0.0f);
+	return m_pTransform;
 }
+
+//void frog::GameObject::SetPosition(float x, float y)
+//{
+//	m_Transform.SetPosition(x, y, 0.0f);
+//}

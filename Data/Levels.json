@@ -4,9 +4,10 @@
         "StartPosition":
         {
             "x":300,
-            "y":180
+            "y":180,
+            "z":0
         },
-        "InactiveImage":"ActiveTile1.png",
-        "ActiveImage":"InactiveTile1.png"
+        "InactiveImage":"InactiveTile1.png",
+        "ActiveImage":"ActiveTile1.png"
     }
 ]

@@ -5,7 +5,7 @@ namespace frog
 	{
 	public:
 		virtual ~Game() = default;
-		virtual void LoadGame() const = 0;
+		virtual void LoadGame() = 0;
 	};
 }
 

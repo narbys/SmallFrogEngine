@@ -24,6 +24,9 @@
     <ClCompile Include="LevelComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QbertComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QBertGame.h">
@@ -31,6 +34,12 @@
     </ClInclude>
     <ClInclude Include="LevelComponent.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QbertComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomCommands.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

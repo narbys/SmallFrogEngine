@@ -12,3 +12,8 @@ void frog::TransformComponent::SetPosition(const float x, const float y, const f
 	m_Position.y = y;
 	m_Position.z = z;
 }
+
+void frog::TransformComponent::SetPosition(const glm::vec3& pos)
+{
+	m_Position = pos;
+}

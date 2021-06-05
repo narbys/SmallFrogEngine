@@ -148,6 +148,16 @@ void LevelComponent::SpawnSlickOrSam()
 	}
 }
 
+void LevelComponent::SetPlayer(frog::GameObject* pPlayer)
+{
+	m_pPlayer = pPlayer;
+}
+
+frog::GameObject* LevelComponent::GetPlayer() const
+{
+	return m_pPlayer;
+}
+
 frog::GameObject* LevelComponent::MakeTile(const glm::vec3& pos, const LevelData& lvlData)
 {
 	using namespace frog;

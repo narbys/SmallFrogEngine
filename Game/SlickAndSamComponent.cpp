@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "GameTime.h"
+#include "ScoreComponent.h"
 #include "TileComponent.h"
 
 void SlickAndSamComponent::Init(const frog::GameObject* level)
@@ -13,6 +14,18 @@ void SlickAndSamComponent::Init(const frog::GameObject* level)
 
 void SlickAndSamComponent::Update()
 {
+	auto* pPlayer = m_pLevelComp->GetPlayer();
+	if (pPlayer)
+	{
+		const float killDistance(5);
+		const float dist = glm::distance(m_pGameObject->GetTransform()->GetPosition(), pPlayer->GetTransform()->GetPosition());
+		if (dist < killDistance)
+		{
+			Die();
+			pPlayer->GetComponent<frog::ScoreComponent>()->AddToScore(300);
+		}
+	}
+	
 	const float elapsedSec = frog::GameTime::GetInstance().GetDeltaTime();
 	m_Timer += elapsedSec;
 	const float moveDelay{ 1.f };
@@ -26,6 +39,7 @@ void SlickAndSamComponent::Update()
 			MoveLeft();
 		m_Timer = 0;
 	}
+
 }
 
 void SlickAndSamComponent::MoveLeft()

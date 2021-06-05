@@ -27,9 +27,12 @@ public:
 	void AddEntity(frog::GameObject* pEntity);
 	void RemoveEntity(frog::GameObject* pEntity);
 	void SpawnSlickOrSam();
+	void SetPlayer(frog::GameObject* pPlayer);
+	frog::GameObject* GetPlayer()const;
 	
 	bool m_SlickOrSamSpawned{};
 private:
+	frog::GameObject* m_pPlayer{};
 	std::vector<frog::GameObject*> m_pLevelEntities;
 	std::vector<frog::GameObject*> m_pTiles;
 	std::vector<int> m_TileRowByIdx;

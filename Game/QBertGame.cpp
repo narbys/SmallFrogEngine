@@ -61,7 +61,8 @@ void QBertGame::LoadGame()
 	auto* QbertComp = new QbertComponent();
 	m_pQbert->AddComponent(QbertComp);
 	QbertComp->Init(m_pLevel);
-
+	pLevelComp->SetPlayer(m_pQbert);
+	
 	auto* pLivesComp = new frog::LivesComponent(3);
 	pLivesText->SetText("Lives: "+std::to_string(pLivesComp->GetLives()));
 	pLivesComp->GetSubject()->AddObserver(livesDisplayObserver);

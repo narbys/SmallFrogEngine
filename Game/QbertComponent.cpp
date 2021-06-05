@@ -2,11 +2,12 @@
 
 #include "GameObject.h"
 #include "TextureComponent.h"
+#include "TileComponent.h"
 
 void QbertComponent::Init(frog::GameObject* level)
 {
 	m_pLevelComp = level->GetComponent<LevelComponent>();
-	auto startpos = m_pLevelComp->GetStartPos();
+	const auto startpos = m_pLevelComp->GetStartPos();
 
 	m_CharacterOffset = 8;	//tex->GetSize()
 	MoveCharacter(startpos);
@@ -82,9 +83,12 @@ void QbertComponent::MoveUpRight()
 	m_CurrentTileIdx = newTileIdx;
 }
 
-void QbertComponent::MoveToTile(int tile)
+void QbertComponent::MoveToTile(int tileIdx)
 {
-	const auto pos = m_pLevelComp->GetTileAtIdx(tile)->GetTransform()->GetPosition();
+	auto* pTile = m_pLevelComp->GetTileAtIdx(tileIdx);
+	const auto pos = pTile->GetTransform()->GetPosition();
+	pTile->GetComponent<TileComponent>()->TileEntered();
+	
 	MoveCharacter(pos);
 }
 

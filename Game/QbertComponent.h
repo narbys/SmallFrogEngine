@@ -19,7 +19,7 @@ private:
 	float m_CharacterOffset{};
 	LevelComponent* m_pLevelComp{};
 	
-	void MoveToTile(int tile);
+	void MoveToTile(int tileIdx);
 	void MoveCharacter(const glm::vec3& pos);
 };
 

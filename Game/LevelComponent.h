@@ -4,7 +4,7 @@
 #include <glm/detail/type_vec.hpp>
 #include <glm/detail/type_vec3.hpp>
 
-
+#include "LevelData.h"
 
 #include "BaseComponent.h"
 
@@ -14,12 +14,6 @@ namespace frog {
 
 class LevelComponent final : public frog::BaseComponent
 {
-	struct LevelData
-	{
-		glm::vec3 StartPos;
-		std::string InactiveImage;
-		std::string ActiveImage;
-	};
 public:
 	LevelComponent() = default;
 	virtual ~LevelComponent();
@@ -35,7 +29,7 @@ private:
 	std::vector<frog::GameObject*> m_pTiles;
 	//std::vector<std::vector<int>> m_TileIndices;
 	std::vector<int> m_TileRowByIdx;
-	frog::GameObject* MakeTile(const glm::vec3& pos, const std::string& textureFileName);
+	frog::GameObject* MakeTile(const glm::vec3& pos, const LevelData& lvlData);
 	LevelData ParseLevelData();
 };
 

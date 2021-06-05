@@ -9,6 +9,7 @@
 #include "rapidjson.h"
 #include "document.h"
 #include "istreamwrapper.h"
+#include "TileComponent.h"
 
 void LevelComponent::Render() const
 {
@@ -59,7 +60,7 @@ void LevelComponent::BuildLevel()
 		for (int j{ 1 }; j <= i; j++)
 		{
 			//make tile
-			pTile=MakeTile(pos, lvlData.InactiveImage);
+			pTile=MakeTile(pos, lvlData);
 			m_pTiles.push_back(pTile);
 			//m_TileIndices.push_back(std::vector<int>());
 			//m_TileIndices[idx].push_back(i-1);
@@ -95,17 +96,21 @@ int LevelComponent::GetMaxTiles() const
 	return m_pTiles.size();
 }
 
-frog::GameObject* LevelComponent::MakeTile(const glm::vec3& pos, const std::string& textureFileName)
+frog::GameObject* LevelComponent::MakeTile(const glm::vec3& pos, const LevelData& lvlData)
 {
 	using namespace frog;
+	
 	GameObject* pTile = new GameObject();
-	auto pTexture = new TextureComponent(textureFileName);
+	auto pTexture = new TextureComponent(lvlData.InactiveImage);
 	pTile->AddComponent(pTexture);
+	auto* tileComp = new TileComponent();
+	pTile->AddComponent(tileComp);
+	tileComp->Init(lvlData);
 	pTile->GetTransform()->SetPosition(pos.x, pos.y, pos.z);
 	return pTile;
 }
 
-LevelComponent::LevelData LevelComponent::ParseLevelData()
+LevelData LevelComponent::ParseLevelData()
 {
 	using namespace rapidjson;
 

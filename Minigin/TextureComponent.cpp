@@ -40,6 +40,7 @@ void frog::TextureComponent::Render() const
 
 void frog::TextureComponent::SetTexture(const std::string& filename)
 {
+	if (m_pTexture2D != nullptr) delete m_pTexture2D;
 	m_pTexture2D = ResourceManager::GetInstance().LoadTexture(filename);
 }
 

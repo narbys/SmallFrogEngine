@@ -1,6 +1,8 @@
 #include "QbertComponent.h"
 
 #include "GameObject.h"
+#include "ScoreComponent.h"
+#include "ServiceLocator.h"
 #include "TextureComponent.h"
 #include "TileComponent.h"
 
@@ -87,7 +89,11 @@ void QbertComponent::MoveToTile(int tileIdx)
 {
 	auto* pTile = m_pLevelComp->GetTileAtIdx(tileIdx);
 	const auto pos = pTile->GetTransform()->GetPosition();
-	pTile->GetComponent<TileComponent>()->TileEntered();
+	auto tileComp = pTile->GetComponent<TileComponent>();
+	bool previousTileState = tileComp->IsTileActivated();
+	tileComp->TileEntered();
+	if (tileComp->IsTileActivated() != previousTileState)
+		m_pGameObject->GetComponent<frog::ScoreComponent>()->AddToScore(25);
 	
 	MoveCharacter(pos);
 }
@@ -95,6 +101,7 @@ void QbertComponent::MoveToTile(int tileIdx)
 void QbertComponent::MoveCharacter(const glm::vec3& pos)
 {
 	m_pGameObject->GetTransform()->SetPosition(pos.x + m_CharacterOffset, pos.y - m_CharacterOffset, 1);
+	frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertJump.wav", 10);
 }
 
 void QbertComponent::Update()

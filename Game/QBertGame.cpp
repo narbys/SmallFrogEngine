@@ -23,7 +23,7 @@ void QBertGame::LoadGame()
 	//Title
 	const auto font = frog::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	go = new frog::GameObject();
-	go->AddComponent(new frog::TextComponent("I will scream again", font));
+	go->AddComponent(new frog::TextComponent("Death comes to all", font));
 	go->GetComponent<frog::TextComponent>()->SetPosition(150, 20);
 	scene.Add(go);
 
@@ -40,20 +40,41 @@ void QBertGame::LoadGame()
 	pLevelComp->BuildLevel();
 	scene.Add(m_pLevel);
 
+	//Live display observer
+	go = new frog::GameObject();
+	const auto pLivesText = static_cast<frog::TextComponent*>(go->AddComponent(new frog::TextComponent("Lives: ", font)));
+	pLivesText->SetPosition(0, 50);
+	const auto livesDisplayObserver = std::make_shared<frog::Display>(pLivesText);
+	scene.Add(go);
+
+	//Score display observer
+	go = new frog::GameObject();
+	const auto pScoreText= static_cast<frog::TextComponent*>(go->AddComponent(new frog::TextComponent("Score: 0", font)));
+	pScoreText->SetPosition(0, 80);
+	const auto scoreDisplayObserver = std::make_shared<frog::Display>(pScoreText);
+	scene.Add(go);
+
 	//The Character
 	m_pQbert = new frog::GameObject();
 	m_pQbert->AddComponent(new frog::TextureComponent{ "QbertSprite.png" });
 	auto* QbertComp = new QbertComponent();
 	m_pQbert->AddComponent(QbertComp);
 	QbertComp->Init(m_pLevel);
+
+	auto* pLivesComp = new frog::LivesComponent(3);
+	pLivesText->SetText("Lives: "+std::to_string(pLivesComp->GetLives()));
+	pLivesComp->GetSubject()->AddObserver(livesDisplayObserver);
+	m_pQbert->AddComponent(pLivesComp);
+
+	auto* pScoreComp = new frog::ScoreComponent();
+	pScoreComp->GetSubject()->AddObserver(scoreDisplayObserver);
+	m_pQbert->AddComponent(pScoreComp);
+	
 	scene.Add(m_pQbert);
-
-
+	
 	//Input
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_LEFT, new MoveQbertBottomLeftCommand(QbertComp));
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_DOWN, new MoveQbertBottomRightCommand(QbertComp));
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_UP, new MoveQbertUpLeftCommand(QbertComp));
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_RIGHT, new MoveQbertUpRightCommand(QbertComp));
-	//frog::InputManager::GetInstance().BindCommand(VK_PAD_B, new frog::KillPlayerCommand(m_pQbert));
-	//frog::InputManager::GetInstance().BindCommand(VK_PAD_X, new frog::IncreaseScoreCommand(m_pQbert));
 }

@@ -1,5 +1,4 @@
 #include "TileComponent.h"
-
 #include "GameObject.h"
 #include "TextureComponent.h"
 
@@ -19,6 +18,11 @@ void TileComponent::TileEntered()
 	{
 		ActivateTile();
 	}
+}
+
+bool TileComponent::IsTileActivated() const
+{
+	return m_IsTileActive;
 }
 
 void TileComponent::ActivateTile()

@@ -15,8 +15,8 @@ namespace frog {
 class LevelComponent final : public frog::BaseComponent
 {
 public:
-	LevelComponent() = default;
-	virtual ~LevelComponent();
+	LevelComponent();
+	~LevelComponent() override;
 	void Update() override;
 	void Render() const override;
 	void BuildLevel();
@@ -24,11 +24,17 @@ public:
 	frog::GameObject* GetTileAtIdx(int idx)const;
 	int GetRowOfTile(int tileIdx)const;
 	int GetMaxTiles()const;
+	void AddEntity(frog::GameObject* pEntity);
+	void RemoveEntity(frog::GameObject* pEntity);
+	void SpawnSlickOrSam();
+	
+	bool m_SlickOrSamSpawned{};
 private:
-	glm::vec3 m_StartPos;
+	std::vector<frog::GameObject*> m_pLevelEntities;
 	std::vector<frog::GameObject*> m_pTiles;
-	//std::vector<std::vector<int>> m_TileIndices;
 	std::vector<int> m_TileRowByIdx;
+	glm::vec3 m_StartPos;
+	
 	frog::GameObject* MakeTile(const glm::vec3& pos, const LevelData& lvlData);
 	LevelData ParseLevelData();
 };

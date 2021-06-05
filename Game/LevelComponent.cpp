@@ -9,14 +9,11 @@
 #include "rapidjson.h"
 #include "document.h"
 #include "istreamwrapper.h"
+#include "SlickAndSamComponent.h"
 #include "TileComponent.h"
 
-void LevelComponent::Render() const
+LevelComponent::LevelComponent()
 {
-	for (auto* tile : m_pTiles)
-	{
-		tile->Render();
-	}
 }
 
 LevelComponent::~LevelComponent()
@@ -27,6 +24,25 @@ LevelComponent::~LevelComponent()
 		tile = nullptr;
 	}
 	m_pTiles.clear();
+	
+	for(auto* entity:m_pLevelEntities)
+	{
+		delete entity;
+		entity = nullptr;
+	}
+	m_pLevelEntities.clear();
+}
+
+void LevelComponent::Render() const
+{
+	for (auto* tile : m_pTiles)
+	{
+		tile->Render();
+	}
+	for(auto* entity:m_pLevelEntities)
+	{
+		entity->Render();
+	}
 }
 
 void LevelComponent::Update()
@@ -35,6 +51,12 @@ void LevelComponent::Update()
 	{
 		tile->Update();
 	}
+	for(auto* entity : m_pLevelEntities)
+	{
+		entity->Update();
+	}
+
+	SpawnSlickOrSam();
 }
 
 void LevelComponent::BuildLevel()
@@ -53,7 +75,6 @@ void LevelComponent::BuildLevel()
 	
 	int rows = 7;
 	//int idx = 0;
-	//m_TileIndices.reserve(rows);
 	
 	for (int i{ 1 }; i <= rows; i++)
 	{
@@ -94,6 +115,37 @@ int LevelComponent::GetRowOfTile(int tileIdx) const
 int LevelComponent::GetMaxTiles() const
 {
 	return m_pTiles.size();
+}
+
+void LevelComponent::AddEntity(frog::GameObject* pEntity)
+{
+	m_pLevelEntities.push_back(pEntity);
+}
+
+void LevelComponent::RemoveEntity(frog::GameObject* pEntity)
+{
+	m_pLevelEntities.erase(std::remove(m_pLevelEntities.begin(), m_pLevelEntities.end(), pEntity), m_pLevelEntities.end());
+	delete pEntity;
+}
+
+void LevelComponent::SpawnSlickOrSam()
+{
+	if(!m_SlickOrSamSpawned)
+	{
+		auto* obj = new frog::GameObject();
+		const int picker = rand() % 2;
+		if(picker==0)
+			obj->AddComponent(new frog::TextureComponent("Slick.png"));
+		else
+			obj->AddComponent(new frog::TextureComponent("Sam.png"));
+
+		auto* pGreenDudeComp = new SlickAndSamComponent();
+		obj->AddComponent(pGreenDudeComp);
+		pGreenDudeComp->Init(m_pGameObject);
+		//owned and managed by the level
+		AddEntity(obj);
+		m_SlickOrSamSpawned = true;
+	}
 }
 
 frog::GameObject* LevelComponent::MakeTile(const glm::vec3& pos, const LevelData& lvlData)

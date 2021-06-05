@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "TextureComponent.h"
 #include "CustomCommands.h"
+#include "SlickAndSamComponent.h"
 
 void QBertGame::LoadGame()
 {
@@ -71,6 +72,16 @@ void QBertGame::LoadGame()
 	m_pQbert->AddComponent(pScoreComp);
 	
 	scene.Add(m_pQbert);
+
+	//slick and sam (spawned by level later)
+	//go = new frog::GameObject();
+	//go->AddComponent(new frog::TextureComponent("Slick.png"));
+	//auto* pGreenDudeComp=new SlickAndSamComponent();
+	//pGreenDudeComp->Init(m_pLevel);
+	//go->AddComponent(pGreenDudeComp);
+	////owned and managed by the level
+	//pLevelComp->AddEntity(go);
+	////scene.Add(go);
 	
 	//Input
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_LEFT, new MoveQbertBottomLeftCommand(QbertComp));

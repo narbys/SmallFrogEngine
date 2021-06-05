@@ -12,8 +12,11 @@ Scene::~Scene()
 {
 	for(auto* obj:m_Objects)
 	{
-		delete obj;
-		obj = nullptr;
+		if (obj)
+		{
+			delete obj;
+			obj = nullptr;
+		}
 	}
 }
 

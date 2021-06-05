@@ -167,6 +167,7 @@
     <ClCompile Include="LevelComponent.cpp" />
     <ClCompile Include="QbertComponent.cpp" />
     <ClCompile Include="QBertGame.cpp" />
+    <ClCompile Include="SlickAndSamComponent.cpp" />
     <ClCompile Include="TileComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="LevelData.h" />
     <ClInclude Include="QbertComponent.h" />
     <ClInclude Include="QBertGame.h" />
+    <ClInclude Include="SlickAndSamComponent.h" />
     <ClInclude Include="TileComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

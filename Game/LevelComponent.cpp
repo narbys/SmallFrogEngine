@@ -8,12 +8,14 @@
 
 #include "rapidjson.h"
 #include "document.h"
+#include "GameTime.h"
 #include "istreamwrapper.h"
 #include "SlickAndSamComponent.h"
 #include "TileComponent.h"
 
 LevelComponent::LevelComponent()
 {
+	ResetSlickSamTimer();
 }
 
 LevelComponent::~LevelComponent()
@@ -56,7 +58,16 @@ void LevelComponent::Update()
 		entity->Update();
 	}
 
-	SpawnSlickOrSam();
+	if (m_SlickSamSpawnTimer <= 0)
+	{
+		SpawnSlickOrSam();
+	}
+	else
+	{
+		const float elapsedSec=frog::GameTime::GetInstance().GetDeltaTime();
+		//countdown
+		m_SlickSamSpawnTimer -= elapsedSec;
+	}
 }
 
 void LevelComponent::BuildLevel()
@@ -158,12 +169,21 @@ frog::GameObject* LevelComponent::GetPlayer() const
 	return m_pPlayer;
 }
 
+void LevelComponent::ResetSlickSamTimer()
+{
+	const int maxTime{ 30 };
+	const int minTime{ 2 };
+	m_SlickSamSpawnTimer = static_cast<float>(rand() % maxTime + minTime);
+
+	m_SlickOrSamSpawned = false;
+}
+
 frog::GameObject* LevelComponent::MakeTile(const glm::vec3& pos, const LevelData& lvlData)
 {
 	using namespace frog;
 	
 	GameObject* pTile = new GameObject();
-	auto pTexture = new TextureComponent(lvlData.InactiveImage);
+	auto* pTexture = new TextureComponent(lvlData.InactiveImage);
 	pTile->AddComponent(pTexture);
 	auto* tileComp = new TileComponent();
 	pTile->AddComponent(tileComp);

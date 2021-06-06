@@ -10,7 +10,6 @@
 #include "SceneManager.h"
 #include "TextureComponent.h"
 #include "CustomCommands.h"
-#include "SlickAndSamComponent.h"
 
 void QBertGame::LoadGame()
 {

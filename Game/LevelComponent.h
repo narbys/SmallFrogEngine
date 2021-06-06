@@ -26,19 +26,22 @@ public:
 	int GetMaxTiles()const;
 	void AddEntity(frog::GameObject* pEntity);
 	void RemoveEntity(frog::GameObject* pEntity);
-	void SpawnSlickOrSam();
 	void SetPlayer(frog::GameObject* pPlayer);
 	frog::GameObject* GetPlayer()const;
+	void ResetSlickSamTimer();
 	
-	bool m_SlickOrSamSpawned{};
 private:
 	frog::GameObject* m_pPlayer{};
 	std::vector<frog::GameObject*> m_pLevelEntities;
 	std::vector<frog::GameObject*> m_pTiles;
 	std::vector<int> m_TileRowByIdx;
 	glm::vec3 m_StartPos;
+
+	bool m_SlickOrSamSpawned{};
+	float m_SlickSamSpawnTimer{};
 	
 	frog::GameObject* MakeTile(const glm::vec3& pos, const LevelData& lvlData);
 	LevelData ParseLevelData();
+	void SpawnSlickOrSam();
 };
 

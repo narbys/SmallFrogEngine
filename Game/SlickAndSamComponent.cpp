@@ -91,6 +91,7 @@ void SlickAndSamComponent::MoveCharacter(const glm::vec3& pos) const
 
 void SlickAndSamComponent::Die() const
 {
-	m_pLevelComp->m_SlickOrSamSpawned = false;
+	m_pLevelComp->ResetSlickSamTimer();
+	//m_pLevelComp->m_SlickOrSamSpawned = false;
 	m_pLevelComp->RemoveEntity(m_pGameObject);
 }

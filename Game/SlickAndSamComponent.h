@@ -9,7 +9,7 @@ public:
 	void Update() override;
 
 private:
-	LevelComponent* m_pLevelComp;
+	LevelComponent* m_pLevelComp{};
 	int m_CurrentTileIdx{};
 	float m_CharacterOffset{ 8 };
 	float m_Timer{};

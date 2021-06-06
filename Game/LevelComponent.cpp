@@ -125,7 +125,7 @@ int LevelComponent::GetRowOfTile(int tileIdx) const
 
 int LevelComponent::GetMaxTiles() const
 {
-	return m_pTiles.size();
+	return static_cast<int>(m_pTiles.size());
 }
 
 void LevelComponent::AddEntity(frog::GameObject* pEntity)

@@ -10,7 +10,8 @@
 #include "SceneManager.h"
 #include "TextureComponent.h"
 #include "CustomCommands.h"
-#include "../3rdParty/SDL2/include/SDL_keycode.h"
+
+#include "SDL_keycode.h"
 
 void QBertGame::LoadGame()
 {

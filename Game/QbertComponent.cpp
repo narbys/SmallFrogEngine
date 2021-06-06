@@ -14,7 +14,7 @@ void QbertComponent::Init(frog::GameObject* level)
 
 	m_CharacterOffset = 8;
 	MoveCharacter(startpos);
-	auto* tex = m_pGameObject->GetComponent<frog::TextureComponent>();
+	//auto* tex = m_pGameObject->GetComponent<frog::TextureComponent>();
 }
 
 void QbertComponent::MoveDownLeft()

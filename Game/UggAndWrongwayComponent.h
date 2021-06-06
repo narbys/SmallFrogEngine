@@ -1,5 +1,7 @@
 #pragma once
+#pragma warning(push,1)
 #include <glm/detail/type_vec.hpp>
+#pragma warning(pop)
 
 #include "BaseComponent.h"
 

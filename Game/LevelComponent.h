@@ -1,8 +1,14 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <glm/detail/type_vec.hpp>
-#include <glm/detail/type_vec3.hpp>
+//#pragma warning(push,1)
+//#include <glm/detail/type_vec.hpp>
+//#include <glm/detail/type_vec3.hpp>
+//#pragma warning(pop)
+#pragma warning(push)
+#pragma warning(disable:4201)
+#include <glm/glm.hpp>
+#pragma warning(pop)
 
 #include "LevelData.h"
 

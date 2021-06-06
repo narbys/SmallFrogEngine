@@ -141,8 +141,9 @@ xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PLatformTarget)\*.dll" "$(OutputP
       <AdditionalDependencies>Minigin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R/Y
-xcopy "$(SolutionDir)Data" "$(OutputPath)Data" /S /Y</Command>
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PLatformTarget)\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PLatformTarget)\*.dll" "$(OutputPath)" /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -164,8 +165,9 @@ xcopy "$(SolutionDir)Data" "$(OutputPath)Data" /S /Y</Command>
       <AdditionalDependencies>Minigin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R/Y
-xcopy "$(SolutionDir)Data" "$(OutputPath)Data" /S /Y</Command>
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\lib\$(PLatformTarget)\SDL2.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PLatformTarget)\*.dll" "$(OutputPath)" /R /Y
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\$(PLatformTarget)\*.dll" "$(OutputPath)" /R /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -175,6 +177,7 @@ xcopy "$(SolutionDir)Data" "$(OutputPath)Data" /S /Y</Command>
     <ClCompile Include="QBertGame.cpp" />
     <ClCompile Include="SlickAndSamComponent.cpp" />
     <ClCompile Include="TileComponent.cpp" />
+    <ClCompile Include="UggAndWrongwayComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomCommands.h" />
@@ -184,6 +187,7 @@ xcopy "$(SolutionDir)Data" "$(OutputPath)Data" /S /Y</Command>
     <ClInclude Include="QBertGame.h" />
     <ClInclude Include="SlickAndSamComponent.h" />
     <ClInclude Include="TileComponent.h" />
+    <ClInclude Include="UggAndWrongwayComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

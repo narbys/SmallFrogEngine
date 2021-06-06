@@ -8,7 +8,7 @@
 void SlickAndSamComponent::Init(const frog::GameObject* level)
 {
 	m_pLevelComp = level->GetComponent<LevelComponent>();
-	const auto startpos = m_pLevelComp->GetStartPos();
+	//const auto startpos = m_pLevelComp->GetStartPos();
 	MoveToTile(0);
 }
 

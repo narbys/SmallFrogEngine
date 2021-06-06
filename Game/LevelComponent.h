@@ -28,9 +28,10 @@ public:
 	void RemoveEntity(frog::GameObject* pEntity);
 	void SetPlayer(frog::GameObject* pPlayer);
 	frog::GameObject* GetPlayer()const;
-	void ResetSlickSamTimer();
 	void CheckCompletion();
 
+	void ResetSlickSamTimer();
+	void ResetUggWrongwayTimer();
 private:
 	int m_CurrentLevelIdx{};
 	frog::GameObject* m_pPlayer{};
@@ -44,9 +45,14 @@ private:
 	bool m_SlickOrSamSpawned{};
 	float m_SlickSamSpawnTimer{};
 	
+	bool m_UggOrWrongwaySpawned{};
+	float m_UggWrongwaySpawnTimer{};
+	
 	frog::GameObject* MakeTile(const glm::vec3& pos, const LevelData& lvlData);
 	LevelData ParseLevelData();
 	void SpawnSlickOrSam();
+	void SpawnUggOrWrongway();
 	void NextLevel();
+	void Cleanup();
 };
 

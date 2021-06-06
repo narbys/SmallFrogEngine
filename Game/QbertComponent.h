@@ -15,6 +15,7 @@ public:
 	void MoveUpRight();
 
 	void ResetCharacter();
+	void Die();
 
 private:
 	int m_CurrentTileIdx{};
@@ -23,6 +24,5 @@ private:
 	
 	void MoveToTile(int tileIdx);
 	void MoveCharacter(const glm::vec3& pos);
-	void Die();
 };
 

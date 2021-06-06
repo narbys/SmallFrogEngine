@@ -13,27 +13,17 @@
 #include "QbertComponent.h"
 #include "SlickAndSamComponent.h"
 #include "TileComponent.h"
+#include "UggAndWrongwayComponent.h"
 
 LevelComponent::LevelComponent()
 {
 	ResetSlickSamTimer();
+	ResetUggWrongwayTimer();
 }
 
 LevelComponent::~LevelComponent()
 {
-	for (auto* tile : m_pTiles)
-	{
-		delete tile;
-		tile = nullptr;
-	}
-	m_pTiles.clear();
-
-	for (auto* entity : m_pLevelEntities)
-	{
-		delete entity;
-		entity = nullptr;
-	}
-	m_pLevelEntities.clear();
+	Cleanup();
 }
 
 void LevelComponent::Render() const
@@ -49,7 +39,7 @@ void LevelComponent::Render() const
 }
 
 void LevelComponent::Update()
-{
+{	
 	for (auto* tile : m_pTiles)
 	{
 		tile->Update();
@@ -68,6 +58,17 @@ void LevelComponent::Update()
 		const float elapsedSec = frog::GameTime::GetInstance().GetDeltaTime();
 		//countdown
 		m_SlickSamSpawnTimer -= elapsedSec;
+	}
+
+	if(m_UggWrongwaySpawnTimer<=0)
+	{
+		SpawnUggOrWrongway();
+	}
+	else
+	{
+		const float elapsedSec = frog::GameTime::GetInstance().GetDeltaTime();
+		//countdown
+		m_UggWrongwaySpawnTimer -= elapsedSec;
 	}
 }
 
@@ -158,21 +159,56 @@ void LevelComponent::SpawnSlickOrSam()
 	}
 }
 
+void LevelComponent::SpawnUggOrWrongway()
+{
+	if(!m_UggOrWrongwaySpawned)
+	{
+		auto* obj = new frog::GameObject();
+		bool isUgg{};
+		const int picker = rand() % 2;
+		if (picker == 0)
+		{
+			obj->AddComponent(new frog::TextureComponent("Ugg.png"));
+			isUgg = true;
+		}
+		else
+			obj->AddComponent(new frog::TextureComponent("Wrongway.png"));
+
+		auto* pPurpleGuyComp = new UggAndWrongwayComponent();
+		obj->AddComponent(pPurpleGuyComp);
+		pPurpleGuyComp->Init(m_pGameObject,isUgg);
+		AddEntity(obj);
+		m_UggOrWrongwaySpawned = true;
+	}
+}
+
 void LevelComponent::NextLevel()
 {
 	//Reset this level and go to the next one
 	//remove the tiles of this level
+	Cleanup();
+	//increase level index
+	m_CurrentLevelIdx++;
+	//build up the new level again
+	BuildLevel();
+	m_pPlayer->GetComponent<QbertComponent>()->ResetCharacter();
+}
+
+void LevelComponent::Cleanup()
+{
 	for (auto* tile : m_pTiles)
 	{
 		delete tile;
 		tile = nullptr;
 	}
 	m_pTiles.clear();
-	//increase level index
-	m_CurrentLevelIdx++;
-	//build up the new level again
-	BuildLevel();
-	m_pPlayer->GetComponent<QbertComponent>()->ResetCharacter();
+
+	for (auto* entity : m_pLevelEntities)
+	{
+		delete entity;
+		entity = nullptr;
+	}
+	m_pLevelEntities.clear();
 }
 
 void LevelComponent::SetPlayer(frog::GameObject* pPlayer)
@@ -192,6 +228,15 @@ void LevelComponent::ResetSlickSamTimer()
 	m_SlickSamSpawnTimer = static_cast<float>(rand() % maxTime + minTime);
 
 	m_SlickOrSamSpawned = false;
+}
+
+void LevelComponent::ResetUggWrongwayTimer()
+{
+	const int maxTime{ 25 };
+	const int minTime{ 2 };
+	m_UggWrongwaySpawnTimer = static_cast<float>(rand() % maxTime + minTime);
+
+	m_UggOrWrongwaySpawned = false;
 }
 
 void LevelComponent::CheckCompletion()
@@ -234,8 +279,7 @@ LevelData LevelComponent::ParseLevelData()
 	doc.ParseStream(inwrap);
 	int maxIdx = doc.Size()-1;
 	if (m_CurrentLevelIdx > maxIdx) m_CurrentLevelIdx = 0;
-	//for (auto* it = doc.Begin(); it != doc.End(); ++it)
-	//{
+
 	const Value& obj = doc[m_CurrentLevelIdx];//*it;
 	const Value& startPosition = obj["StartPosition"];
 	const Value& inactiveImg = obj["InactiveImage"];
@@ -252,7 +296,6 @@ LevelData LevelComponent::ParseLevelData()
 	levelData.ActiveImage2 = activeImg2.GetString();
 
 	levelData.Config = levelConfig.GetInt();
-	//}
 
 	return levelData;
 }

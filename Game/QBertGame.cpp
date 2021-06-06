@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "TextureComponent.h"
 #include "CustomCommands.h"
+#include "../3rdParty/SDL2/include/SDL_keycode.h"
 
 void QBertGame::LoadGame()
 {
@@ -88,4 +89,11 @@ void QBertGame::LoadGame()
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_DOWN, new MoveQbertBottomRightCommand(QbertComp));
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_UP, new MoveQbertUpLeftCommand(QbertComp));
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_RIGHT, new MoveQbertUpRightCommand(QbertComp));
+
+	frog::InputManager::GetInstance().BindCommand(SDL_SCANCODE_LEFT, new MoveQbertBottomLeftCommand(QbertComp));
+	frog::InputManager::GetInstance().BindCommand(SDL_SCANCODE_DOWN, new MoveQbertBottomRightCommand(QbertComp));
+	frog::InputManager::GetInstance().BindCommand(SDL_SCANCODE_UP, new MoveQbertUpLeftCommand(QbertComp));
+	frog::InputManager::GetInstance().BindCommand(SDL_SCANCODE_RIGHT, new MoveQbertUpRightCommand(QbertComp));
+
 }
+

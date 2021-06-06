@@ -28,13 +28,17 @@ bool frog::InputManager::ProcessInput()
 	
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
+		if (e.type == SDL_QUIT) 
+		{
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
+		if (e.type == SDL_KEYDOWN) 
+		{
+			WORD k = static_cast<WORD>(e.key.keysym.sym);
+			m_KeyMap[k]->Execute();
 		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
+		if (e.type == SDL_MOUSEBUTTONDOWN) 
+		{
 			
 		}
 	}

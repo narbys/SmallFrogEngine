@@ -35,7 +35,9 @@ bool frog::InputManager::ProcessInput()
 		if (e.type == SDL_KEYDOWN) 
 		{
 			WORD k = static_cast<WORD>(e.key.keysym.sym);
-			m_KeyMap[k]->Execute();
+			auto* Command = m_KeyMap[k];
+			if(Command)
+				Command->Execute();
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) 
 		{

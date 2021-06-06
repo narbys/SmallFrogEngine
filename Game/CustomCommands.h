@@ -15,6 +15,7 @@ public:
 	}
 private:
 	QbertComponent* m_pQbert;
+	
 };
 
 //Move BottomRight

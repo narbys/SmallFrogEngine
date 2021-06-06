@@ -1,6 +1,7 @@
 #include "QbertComponent.h"
 
 #include "GameObject.h"
+#include "LivesComponent.h"
 #include "ScoreComponent.h"
 #include "ServiceLocator.h"
 #include "TextureComponent.h"
@@ -23,7 +24,11 @@ void QbertComponent::MoveDownLeft()
 	const int newTileIdx = m_CurrentTileIdx + thisRow + 1;
 
 	if (newTileIdx > m_pLevelComp->GetMaxTiles() - 1 || newTileIdx < 0)
+	{
+		Die();
+		frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertFall.wav", 10);
 		return;
+	}
 
 	MoveToTile(newTileIdx);
 	m_CurrentTileIdx = newTileIdx;
@@ -36,7 +41,11 @@ void QbertComponent::MoveDownRight()
 	const int newTileIdx = m_CurrentTileIdx + thisRow + 2;
 
 	if (newTileIdx > m_pLevelComp->GetMaxTiles() - 1 || newTileIdx < 0)
+	{
+		Die();
+		frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertFall.wav", 10);
 		return;
+	}
 
 	MoveToTile(newTileIdx);
 	m_CurrentTileIdx = newTileIdx;
@@ -49,14 +58,19 @@ void QbertComponent::MoveUpLeft()
 	const int newTileIdx = m_CurrentTileIdx - (thisRow + 1);
 
 	if (newTileIdx > m_pLevelComp->GetMaxTiles() - 1 || newTileIdx < 0)
+	{
+		Die();
+		frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertFall.wav", 10);
 		return;
+	}
 
 	const int newRow = m_pLevelComp->GetRowOfTile(newTileIdx);
 
 	//Check if you can go to that tile
 	if (newRow != thisRow - 1)
 	{
-		//idk die or some shit
+		Die();
+		frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertFall.wav", 10);
 		return;
 	}
 
@@ -71,14 +85,19 @@ void QbertComponent::MoveUpRight()
 	const int newTileIdx = m_CurrentTileIdx - thisRow;
 
 	if (newTileIdx > m_pLevelComp->GetMaxTiles() - 1 || newTileIdx < 0)
+	{
+		Die();
+		frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertFall.wav", 10);
 		return;
+	}
 
 	const int newRow = m_pLevelComp->GetRowOfTile(newTileIdx);
 
 	//Check if you can go to that tile
 	if (newRow != thisRow - 1)
 	{
-		//idk die or some shit
+		Die();
+		frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertFall.wav", 10);
 		return;
 	}
 	MoveToTile(newTileIdx);
@@ -102,6 +121,13 @@ void QbertComponent::MoveCharacter(const glm::vec3& pos)
 {
 	m_pGameObject->GetTransform()->SetPosition(pos.x + m_CharacterOffset, pos.y - m_CharacterOffset, 1);
 	frog::ServiceLocator::GetSoundSystem()->PlaySound("../Data/QbertJump.wav", 10);
+}
+
+void QbertComponent::Die()
+{
+	MoveToTile(0);
+	m_CurrentTileIdx = 0;
+	m_pGameObject->GetComponent<frog::LivesComponent>()->ReduceLives();
 }
 
 void QbertComponent::Update()

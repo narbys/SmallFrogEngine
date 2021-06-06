@@ -28,7 +28,7 @@ void SlickAndSamComponent::Update()
 	
 	const float elapsedSec = frog::GameTime::GetInstance().GetDeltaTime();
 	m_Timer += elapsedSec;
-	const float moveDelay{ 1.f };
+	const float moveDelay{ 0.5f };
 	if(m_Timer > moveDelay)
 	{
 		//do some movement

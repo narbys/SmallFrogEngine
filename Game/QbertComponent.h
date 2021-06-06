@@ -21,5 +21,6 @@ private:
 	
 	void MoveToTile(int tileIdx);
 	void MoveCharacter(const glm::vec3& pos);
+	void Die();
 };
 

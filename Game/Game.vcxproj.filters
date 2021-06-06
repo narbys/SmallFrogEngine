@@ -50,10 +50,10 @@
     <ClInclude Include="TileComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LevelData.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="SlickAndSamComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 [
 
     {
+        "Configuration":1,
         "StartPosition":
         {
             "x":300,
@@ -8,6 +9,7 @@
             "z":0
         },
         "InactiveImage":"InactiveTile1.png",
-        "ActiveImage":"ActiveTile1.png"
+        "ActiveImage":"ActiveTile1.png",
+        "ActiveImage2":"ActiveTile2.png"
     }
 ]

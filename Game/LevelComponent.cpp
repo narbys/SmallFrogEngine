@@ -210,13 +210,18 @@ LevelData LevelComponent::ParseLevelData()
 		const Value& StartPosition = obj["StartPosition"];
 		const Value& InactiveImg = obj["InactiveImage"];
 		const Value& ActiveImg = obj["ActiveImage"];
-
+		const Value& ActiveImg2 = obj["ActiveImage2"];
+		const Value& LevelConfig = obj["Configuration"];
+		
 		levelData.StartPos.x = StartPosition["x"].GetFloat();
 		levelData.StartPos.y = StartPosition["y"].GetFloat();
 		levelData.StartPos.z = StartPosition["z"].GetFloat();
 
 		levelData.InactiveImage = InactiveImg.GetString();
 		levelData.ActiveImage = ActiveImg.GetString();
+		levelData.ActiveImage2 = ActiveImg2.GetString();
+
+		levelData.Config = LevelConfig.GetInt();
 	}
 	
 	return levelData;

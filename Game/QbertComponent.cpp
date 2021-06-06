@@ -12,7 +12,7 @@ void QbertComponent::Init(frog::GameObject* level)
 	m_pLevelComp = level->GetComponent<LevelComponent>();
 	const auto startpos = m_pLevelComp->GetStartPos();
 
-	m_CharacterOffset = 8;	//tex->GetSize()
+	m_CharacterOffset = 8;
 	MoveCharacter(startpos);
 	auto* tex = m_pGameObject->GetComponent<frog::TextureComponent>();
 }

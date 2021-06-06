@@ -5,7 +5,9 @@
 
 struct LevelData
 {
+	int Config;
 	glm::vec3 StartPos;
 	std::string InactiveImage;
 	std::string ActiveImage;
+	std::string ActiveImage2;
 };

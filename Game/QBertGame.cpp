@@ -24,7 +24,7 @@ void QBertGame::LoadGame()
 	//Title
 	const auto font = frog::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	go = new frog::GameObject();
-	go->AddComponent(new frog::TextComponent("Death comes to all", font));
+	go->AddComponent(new frog::TextComponent("Qbert: Programming 4", font));
 	go->GetComponent<frog::TextComponent>()->SetPosition(150, 20);
 	scene.Add(go);
 

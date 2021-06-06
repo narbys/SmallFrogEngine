@@ -23,7 +23,7 @@ frog::SimpleSDL2AudioSoundSystem::~SimpleSDL2AudioSoundSystem()
 
 void frog::SimpleSDL2AudioSoundSystem::PlaySound(const std::string& filename, int volume)
 {
-	Renderer::GetInstance().LogDebugText("Playing sound "+filename+" at "+std::to_string(volume));
+	//Renderer::GetInstance().LogDebugText("Playing sound "+filename+" at "+std::to_string(volume));
 	const std::pair<std::string, int> data{ filename, volume };
 	
 	std::lock_guard<std::mutex> lock(m_Mutex);

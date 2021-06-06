@@ -14,7 +14,7 @@
 
 void QBertGame::LoadGame()
 {
-	auto& scene = frog::SceneManager::GetInstance().CreateScene("Level1");
+	auto& scene = frog::SceneManager::GetInstance().CreateScene("Level");
 
 	//Background
 	auto go = new frog::GameObject();
@@ -73,16 +73,7 @@ void QBertGame::LoadGame()
 	m_pQbert->AddComponent(pScoreComp);
 	
 	scene.Add(m_pQbert);
-
-	//slick and sam (spawned by level later)
-	//go = new frog::GameObject();
-	//go->AddComponent(new frog::TextureComponent("Slick.png"));
-	//auto* pGreenDudeComp=new SlickAndSamComponent();
-	//pGreenDudeComp->Init(m_pLevel);
-	//go->AddComponent(pGreenDudeComp);
-	////owned and managed by the level
-	//pLevelComp->AddEntity(go);
-	////scene.Add(go);
+	
 	
 	//Input
 	frog::InputManager::GetInstance().BindCommand(VK_PAD_DPAD_LEFT, new MoveQbertBottomLeftCommand(QbertComp));

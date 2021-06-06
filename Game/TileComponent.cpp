@@ -16,8 +16,6 @@ void TileComponent::Update()
 void TileComponent::TileEntered()
 {
 	int config = m_LevelData.Config;
-	//depends on which level, lvl1 now
-
 	switch (config)
 	{
 		case 1:
@@ -56,7 +54,10 @@ void TileComponent::TileEnteredByGreenDude()
 
 bool TileComponent::IsTileActivated() const
 {
-	return m_IsTileActive;
+	if (m_LevelData.Config != 2)
+		return m_IsTileActive;
+	else
+		return m_IsTileActiveTwice;
 }
 
 void TileComponent::ActivateTile()

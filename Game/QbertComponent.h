@@ -14,6 +14,8 @@ public:
 	void MoveUpLeft();
 	void MoveUpRight();
 
+	void ResetCharacter();
+
 private:
 	int m_CurrentTileIdx{};
 	float m_CharacterOffset{};

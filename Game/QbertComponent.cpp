@@ -31,7 +31,6 @@ void QbertComponent::MoveDownLeft()
 	}
 
 	MoveToTile(newTileIdx);
-	m_CurrentTileIdx = newTileIdx;
 }
 
 void QbertComponent::MoveDownRight()
@@ -48,7 +47,6 @@ void QbertComponent::MoveDownRight()
 	}
 
 	MoveToTile(newTileIdx);
-	m_CurrentTileIdx = newTileIdx;
 }
 
 void QbertComponent::MoveUpLeft()
@@ -75,7 +73,6 @@ void QbertComponent::MoveUpLeft()
 	}
 
 	MoveToTile(newTileIdx);
-	m_CurrentTileIdx = newTileIdx;
 }
 
 void QbertComponent::MoveUpRight()
@@ -101,20 +98,27 @@ void QbertComponent::MoveUpRight()
 		return;
 	}
 	MoveToTile(newTileIdx);
-	m_CurrentTileIdx = newTileIdx;
+}
+
+void QbertComponent::ResetCharacter()
+{
+	MoveToTile(0);
 }
 
 void QbertComponent::MoveToTile(int tileIdx)
 {
+	m_CurrentTileIdx = tileIdx;
 	auto* pTile = m_pLevelComp->GetTileAtIdx(tileIdx);
 	const auto pos = pTile->GetTransform()->GetPosition();
 	auto tileComp = pTile->GetComponent<TileComponent>();
 	bool previousTileState = tileComp->IsTileActivated();
 	tileComp->TileEntered();
-	if (tileComp->IsTileActivated() != previousTileState)
-		m_pGameObject->GetComponent<frog::ScoreComponent>()->AddToScore(25);
-	
 	MoveCharacter(pos);
+	if (tileComp->IsTileActivated() != previousTileState)
+	{
+		m_pGameObject->GetComponent<frog::ScoreComponent>()->AddToScore(25);
+		m_pLevelComp->CheckCompletion();
+	}
 }
 
 void QbertComponent::MoveCharacter(const glm::vec3& pos)
@@ -126,7 +130,6 @@ void QbertComponent::MoveCharacter(const glm::vec3& pos)
 void QbertComponent::Die()
 {
 	MoveToTile(0);
-	m_CurrentTileIdx = 0;
 	m_pGameObject->GetComponent<frog::LivesComponent>()->ReduceLives();
 }
 

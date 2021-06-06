@@ -10,6 +10,7 @@
 #include "document.h"
 #include "GameTime.h"
 #include "istreamwrapper.h"
+#include "QbertComponent.h"
 #include "SlickAndSamComponent.h"
 #include "TileComponent.h"
 
@@ -26,8 +27,8 @@ LevelComponent::~LevelComponent()
 		tile = nullptr;
 	}
 	m_pTiles.clear();
-	
-	for(auto* entity:m_pLevelEntities)
+
+	for (auto* entity : m_pLevelEntities)
 	{
 		delete entity;
 		entity = nullptr;
@@ -41,7 +42,7 @@ void LevelComponent::Render() const
 	{
 		tile->Render();
 	}
-	for(auto* entity:m_pLevelEntities)
+	for (auto* entity : m_pLevelEntities)
 	{
 		entity->Render();
 	}
@@ -53,7 +54,7 @@ void LevelComponent::Update()
 	{
 		tile->Update();
 	}
-	for(auto* entity : m_pLevelEntities)
+	for (auto* entity : m_pLevelEntities)
 	{
 		entity->Update();
 	}
@@ -64,7 +65,7 @@ void LevelComponent::Update()
 	}
 	else
 	{
-		const float elapsedSec=frog::GameTime::GetInstance().GetDeltaTime();
+		const float elapsedSec = frog::GameTime::GetInstance().GetDeltaTime();
 		//countdown
 		m_SlickSamSpawnTimer -= elapsedSec;
 	}
@@ -74,29 +75,27 @@ void LevelComponent::BuildLevel()
 {
 	using namespace frog;
 
-	LevelData lvlData = ParseLevelData();
+	m_LevelData = ParseLevelData();
 
-	m_StartPos=lvlData.StartPos;
+	m_StartPos = m_LevelData.StartPos;
 	GameObject* pTile = nullptr;
 
-	const float textureSize{ 32.f }; //temporarily as i cannot get the size from the texturecomponent
+	const float textureSize{ 32.f };
 	float xoffset{};
-	const float yoffset{textureSize*0.75};
+	const float yoffset{ textureSize * 0.75 };
 	glm::vec3 pos{ m_StartPos };
-	
+
 	int rows = 7;
 	//int idx = 0;
-	
+
 	for (int i{ 1 }; i <= rows; i++)
 	{
 		for (int j{ 1 }; j <= i; j++)
 		{
 			//make tile
-			pTile=MakeTile(pos, lvlData);
+			pTile = MakeTile(pos, m_LevelData);
 			m_pTiles.push_back(pTile);
-			//m_TileIndices.push_back(std::vector<int>());
-			//m_TileIndices[idx].push_back(i-1);
-			m_TileRowByIdx.push_back(i-1);
+			m_TileRowByIdx.push_back(i - 1);
 			pos.x += textureSize;
 			//++idx;
 		}
@@ -141,11 +140,11 @@ void LevelComponent::RemoveEntity(frog::GameObject* pEntity)
 
 void LevelComponent::SpawnSlickOrSam()
 {
-	if(!m_SlickOrSamSpawned)
+	if (!m_SlickOrSamSpawned)
 	{
 		auto* obj = new frog::GameObject();
 		const int picker = rand() % 2;
-		if(picker==0)
+		if (picker == 0)
 			obj->AddComponent(new frog::TextureComponent("Slick.png"));
 		else
 			obj->AddComponent(new frog::TextureComponent("Sam.png"));
@@ -157,6 +156,23 @@ void LevelComponent::SpawnSlickOrSam()
 		AddEntity(obj);
 		m_SlickOrSamSpawned = true;
 	}
+}
+
+void LevelComponent::NextLevel()
+{
+	//Reset this level and go to the next one
+	//remove the tiles of this level
+	for (auto* tile : m_pTiles)
+	{
+		delete tile;
+		tile = nullptr;
+	}
+	m_pTiles.clear();
+	//increase level index
+	m_CurrentLevelIdx++;
+	//build up the new level again
+	BuildLevel();
+	m_pPlayer->GetComponent<QbertComponent>()->ResetCharacter();
 }
 
 void LevelComponent::SetPlayer(frog::GameObject* pPlayer)
@@ -178,10 +194,23 @@ void LevelComponent::ResetSlickSamTimer()
 	m_SlickOrSamSpawned = false;
 }
 
+void LevelComponent::CheckCompletion()
+{
+	for (frog::GameObject* pTile : m_pTiles)
+	{
+		const bool active = pTile->GetComponent<TileComponent>()->IsTileActivated();
+		if (!active) return;
+	}
+	//if it gets here, level is completed
+	//destroy this level and load in the next one
+	frog::Renderer::GetInstance().LogDebugText("Level completed!", { 0,1,0,1 });
+	NextLevel();
+}
+
 frog::GameObject* LevelComponent::MakeTile(const glm::vec3& pos, const LevelData& lvlData)
 {
 	using namespace frog;
-	
+
 	GameObject* pTile = new GameObject();
 	auto* pTexture = new TextureComponent(lvlData.InactiveImage);
 	pTile->AddComponent(pTexture);
@@ -197,32 +226,33 @@ LevelData LevelComponent::ParseLevelData()
 	using namespace rapidjson;
 
 	LevelData levelData{};
-	
+
 	std::ifstream in{ "../Data/Levels.json" };
 	IStreamWrapper inwrap{ in };
-	
+
 	Document doc;
 	doc.ParseStream(inwrap);
+	int maxIdx = doc.Size()-1;
+	if (m_CurrentLevelIdx > maxIdx) m_CurrentLevelIdx = 0;
+	//for (auto* it = doc.Begin(); it != doc.End(); ++it)
+	//{
+	const Value& obj = doc[m_CurrentLevelIdx];//*it;
+	const Value& startPosition = obj["StartPosition"];
+	const Value& inactiveImg = obj["InactiveImage"];
+	const Value& activeImg = obj["ActiveImage"];
+	const Value& activeImg2 = obj["ActiveImage2"];
+	const Value& levelConfig = obj["Configuration"];
 
-	for (auto* it = doc.Begin(); it != doc.End(); ++it)
-	{
-		const Value& obj = *it;
-		const Value& StartPosition = obj["StartPosition"];
-		const Value& InactiveImg = obj["InactiveImage"];
-		const Value& ActiveImg = obj["ActiveImage"];
-		const Value& ActiveImg2 = obj["ActiveImage2"];
-		const Value& LevelConfig = obj["Configuration"];
-		
-		levelData.StartPos.x = StartPosition["x"].GetFloat();
-		levelData.StartPos.y = StartPosition["y"].GetFloat();
-		levelData.StartPos.z = StartPosition["z"].GetFloat();
+	levelData.StartPos.x = startPosition["x"].GetFloat();
+	levelData.StartPos.y = startPosition["y"].GetFloat();
+	levelData.StartPos.z = startPosition["z"].GetFloat();
 
-		levelData.InactiveImage = InactiveImg.GetString();
-		levelData.ActiveImage = ActiveImg.GetString();
-		levelData.ActiveImage2 = ActiveImg2.GetString();
+	levelData.InactiveImage = inactiveImg.GetString();
+	levelData.ActiveImage = activeImg.GetString();
+	levelData.ActiveImage2 = activeImg2.GetString();
 
-		levelData.Config = LevelConfig.GetInt();
-	}
-	
+	levelData.Config = levelConfig.GetInt();
+	//}
+
 	return levelData;
 }

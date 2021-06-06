@@ -29,19 +29,24 @@ public:
 	void SetPlayer(frog::GameObject* pPlayer);
 	frog::GameObject* GetPlayer()const;
 	void ResetSlickSamTimer();
-	
+	void CheckCompletion();
+
 private:
+	int m_CurrentLevelIdx{};
 	frog::GameObject* m_pPlayer{};
 	std::vector<frog::GameObject*> m_pLevelEntities;
 	std::vector<frog::GameObject*> m_pTiles;
 	std::vector<int> m_TileRowByIdx;
 	glm::vec3 m_StartPos;
+	LevelData m_LevelData;
 
+	
 	bool m_SlickOrSamSpawned{};
 	float m_SlickSamSpawnTimer{};
 	
 	frog::GameObject* MakeTile(const glm::vec3& pos, const LevelData& lvlData);
 	LevelData ParseLevelData();
 	void SpawnSlickOrSam();
+	void NextLevel();
 };
 
